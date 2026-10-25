@@ -1,167 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ROSSAPP</title>
-<meta name="theme-color" content="#0A0A0A">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b100d">
+<title>ROSSAPP V3</title>
 <style>
-:root{--bg:#0A0A0A;--surface:#141414;--border:#242424;--neon:#00FF88;--glow:rgba(0,255,136,.25);--text:#EEEEEE;--muted:#7A7A7A}
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
-html,body{height:100%}
-body{background:var(--bg);color:var(--text);height:100dvh;min-height:100dvh;display:flex;justify-content:center;overflow:hidden}
-#app{width:100%;max-width:480px;height:100dvh;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);position:relative}
-#auth{position:absolute;inset:0;z-index:20;background:radial-gradient(circle at 20% 30%,#0f2a1f 0%,#0A0A0A 70%);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
-.card{width:100%;background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:1px solid var(--glow);border-radius:24px;padding:28px;box-shadow:0 0 40px var(--glow)}
-.logo h1{color:var(--neon);font-size:34px;letter-spacing:3px;text-align:center}
-.logo p{color:var(--muted);font-size:11px;letter-spacing:4px;text-align:center;margin-top:6px}
-label{font-size:12px;color:var(--neon);margin:14px 0 6px;display:block;font-weight:700;letter-spacing:1px}
-.input-wrap{position:relative}
-.input-wrap input{width:100%;padding:13px 40px 13px 14px;border-radius:12px;border:1px solid var(--border);background:#0f0f0f;color:#fff;outline:none}
-input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--border);background:#0f0f0f;color:#fff;outline:none}
-input:focus{border-color:var(--neon);box-shadow:0 0 0 3px var(--glow)}
-.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;user-select:none;font-size:18px;opacity:.7}
-.eye:hover{opacity:1}
-.btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;background:var(--neon);color:#000;font-weight:900;font-size:15px;cursor:pointer}
-.btn-google{width:100%;margin-top:12px;padding:13px;border:1px solid var(--border);border-radius:12px;background:#fff;color:#000;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.divider{text-align:center;margin:16px 0;color:var(--muted);font-size:11px;letter-spacing:2px;position:relative}
-.divider::before{content:'';position:absolute;left:0;top:50%;width:40%;height:1px;background:var(--border)}
-.divider::after{content:'';position:absolute;right:0;top:50%;width:40%;height:1px;background:var(--border)}
-.switch{text-align:center;margin-top:16px;font-size:13px;color:var(--muted)}
-.switch span{color:var(--neon);font-weight:800;cursor:pointer}
-.top{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface);flex-shrink:0}
-.badge{border:1px solid var(--neon);color:var(--neon);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800}
-.channels{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;border-bottom:1px solid var(--border);flex-shrink:0}
-.ch{padding:8px 14px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:13px;white-space:nowrap;cursor:pointer}
-.ch.active{background:var(--neon);color:#000;font-weight:800;border-color:var(--neon)}
-#msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
-.msg{background:var(--surface);border-left:3px solid var(--neon);padding:10px 14px;border-radius:12px;max-width:85%;animation:pop .2s ease}
-.msg b{color:var(--neon);font-size:11px;letter-spacing:1px}
-.msg p{margin-top:4px;font-size:14px;line-height:1.4;word-break:break-word}
-@keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
-.bar{display:flex;gap:10px;padding:14px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
-.bar input{flex:1}
-.bar button{padding:0 20px;border-radius:12px;border:none;background:var(--neon);color:#000;font-weight:900;cursor:pointer}
-.mainWrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
+:root{color-scheme:dark;--bg:#0b100d;--panel:#111914;--panel2:#18221b;--line:#26342a;--green:#7dffad;--green2:#35db78;--text:#eff7f0;--muted:#92a397;--danger:#ff7272;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100dvh}
+button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.hidden{display:none!important}.muted{color:var(--muted)}.tiny{font-size:11px}.brand{font-weight:900;letter-spacing:2px;color:var(--green);font-size:23px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:3px;font-weight:700}
+.btn{border:0;border-radius:12px;background:var(--green);color:#07110a;padding:11px 15px;font-weight:850}.btn:hover{filter:brightness(.95)}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.danger{background:#351b1d;color:#ffb6b6;border:1px solid #673033}.btn.small{padding:7px 10px;font-size:12px}.field{width:100%;background:#0a0f0c;border:1px solid var(--line);border-radius:12px;color:var(--text);padding:12px}.field:focus{border-color:var(--green)}label{display:block;font-size:11px;letter-spacing:1px;font-weight:800;color:var(--muted);margin:12px 0 6px}
+.auth-shell{min-height:100dvh;display:grid;place-items:center;padding:22px;background:radial-gradient(ellipse at 20% 10%,#183d27 0,transparent 38%),var(--bg)}
+.auth-card{width:min(100%,420px);padding:28px;border:1px solid #294a34;border-radius:24px;background:rgba(17,25,20,.94);box-shadow:0 24px 80px #0008}
+.auth-card .brand{text-align:center;font-size:32px}.auth-card .brand small{margin-top:5px}.auth-card h2{margin:24px 0 3px;font-size:22px}.auth-card p{margin:0;color:var(--muted)}.auth-actions{display:grid;gap:10px;margin-top:18px}.auth-switch{text-align:center;color:var(--muted);margin-top:17px}.link{color:var(--green);font-weight:800;cursor:pointer;background:none;border:0;padding:0}.error{color:#ff9b9b;font-size:12px;min-height:18px;margin-top:9px}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);height:100dvh;max-width:1500px;margin:auto;border-inline:1px solid #1b2820;overflow:hidden}
+.sidebar{background:#0e1510;border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.side-head{padding:21px 18px;border-bottom:1px solid var(--line)}.me-card{display:flex;gap:11px;align-items:center;padding:15px 17px;border-bottom:1px solid var(--line)}.me-text{min-width:0;flex:1}.me-text strong,.me-text span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.me-text span{font-size:11px;color:var(--muted)}.avatar{width:42px;height:42px;border-radius:50%;background:#234832;color:var(--green);border:1px solid #39744c;display:grid;place-items:center;font-weight:900;object-fit:cover;flex-shrink:0}.avatar.xs{width:32px;height:32px;font-size:12px}.avatar.lg{width:82px;height:82px;font-size:25px}.side-scroll{overflow:auto;padding:13px 10px;flex:1}.section-title{padding:7px 9px;color:var(--muted);font-size:10px;letter-spacing:1.5px;font-weight:900;display:flex;justify-content:space-between;align-items:center}.nav-item{width:100%;display:flex;align-items:center;gap:9px;text-align:left;padding:10px;border:0;border-radius:10px;color:#c7d6ca;background:transparent;margin:2px 0}.nav-item:hover{background:#18251b}.nav-item.active{background:#1a3322;color:var(--green);font-weight:800}.nav-item .count{margin-left:auto;color:var(--muted);font-size:11px}.side-foot{border-top:1px solid var(--line);padding:12px}
+.main{display:flex;flex-direction:column;min-width:0;min-height:0;background:radial-gradient(ellipse at 50% 0,#14241a 0,transparent 42%),var(--bg)}
+.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:1px solid var(--line);background:#0e1510e8;flex-shrink:0}.title-area{min-width:0}.title-area h1{font-size:17px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.title-area p{font-size:11px;color:var(--muted);margin:3px 0 0}.top-actions{display:flex;gap:8px;align-items:center}
+.content{flex:1;min-height:0;display:flex;flex-direction:column}.welcome{margin:auto;text-align:center;max-width:440px;padding:30px}.welcome .emoji{font-size:45px}.welcome h2{margin:12px 0 6px}.welcome p{color:var(--muted)}
+.messages{flex:1;overflow:auto;padding:22px max(18px,calc((100% - 850px)/2));display:flex;flex-direction:column;gap:15px}.msg{display:flex;align-items:flex-start;gap:10px;max-width:min(780px,100%)}.msg.mine{align-self:flex-end;flex-direction:row-reverse}.msg-body{min-width:0;max-width:calc(100% - 44px)}.msg-head{display:flex;gap:8px;align-items:baseline;margin:0 0 4px}.msg-head strong{font-size:12px;color:var(--green)}.msg-head time{font-size:10px;color:var(--muted)}.bubble{padding:10px 13px;border:1px solid var(--line);background:var(--panel);border-radius:4px 15px 15px 15px;white-space:pre-wrap;overflow-wrap:anywhere}.mine .bubble{background:#1e4a2d;border-color:#2b6840;border-radius:15px 4px 15px 15px}.composer-wrap{padding:13px 18px calc(13px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#0e1510}.composer{display:flex;gap:10px;max-width:900px;margin:auto}.composer input{flex:1;min-width:0;border-radius:14px}.hint{text-align:center;color:var(--muted);font-size:10px;margin-top:7px}
+.empty{margin:auto;text-align:center;color:var(--muted);padding:25px}.modal-backdrop{position:fixed;inset:0;z-index:50;background:#000b;display:grid;place-items:center;padding:18px}.modal{width:min(100%,460px);max-height:90dvh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:23px;box-shadow:0 25px 100px #0009}.modal h2{margin:0 0 6px}.modal p{color:var(--muted);margin:0 0 14px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;flex-wrap:wrap}.member-list{display:grid;gap:8px;margin-top:12px}.member-row{display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--line);border-radius:12px}.member-row .grow{flex:1;min-width:0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e9fff0;color:#07110a;padding:11px 16px;border-radius:12px;font-weight:800;z-index:100;box-shadow:0 10px 40px #0008;max-width:calc(100% - 30px)}
+.mobile-bar{display:none}
+@media(max-width:760px){.app{grid-template-columns:1fr;border:0}.sidebar{display:none}.main{height:100dvh}.topbar{height:68px;padding:10px 14px}.messages{padding:16px 12px}.composer-wrap{padding:10px 10px calc(10px + env(safe-area-inset-bottom))}.mobile-bar{display:flex;gap:5px;padding:7px 7px calc(7px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#0e1510;overflow-x:auto}.mobile-bar .nav-item{white-space:nowrap;justify-content:center;font-size:11px;padding:9px 10px}.top-actions .hide-mobile{display:none}.msg{max-width:100%}}
 </style>
 </head>
 <body>
-<div id="app">
-  <div id="auth">
-    <div class="card">
-      <div class="logo"><h1>ROSSAPP</h1><p>UNLIMITED EDITION</p></div>
-      <div id="signupBox">
-        <label>USERNAME</label><input id="suUser" placeholder="Your username">
-        <label>EMAIL</label><input id="suEmail" placeholder="Email address">
-        <label>PASSWORD</label><div class="input-wrap"><input id="suPass" type="password" placeholder="Password"><span class="eye" data-target="suPass">👁️</span></div>
-        <label>CONFIRM</label><div class="input-wrap"><input id="suPass2" type="password" placeholder="Confirm password"><span class="eye" data-target="suPass2">👁️</span></div>
-        <button class="btn" id="btnSignup">JOIN UNLIMITED</button>
-        <button class="btn-google" id="btnGoogleUp">Continue with Google</button>
-        <div class="divider">OR</div>
-        <div class="switch">Already have account? <span id="toLogin">Login</span></div>
-      </div>
-      <div id="loginBox" style="display:none">
-        <label>EMAIL</label><input id="liEmail" placeholder="Email">
-        <label>PASSWORD</label><div class="input-wrap"><input id="liPass" type="password" placeholder="Password"><span class="eye" data-target="liPass">👁️</span></div>
-        <button class="btn" id="btnLogin">LOGIN</button>
-        <button class="btn-google" id="btnGoogleIn">Continue with Google</button>
-        <div class="switch">No account? <span id="toSignup">Create</span></div>
-      </div>
+<section id="authView" class="auth-shell">
+  <div class="auth-card">
+    <div class="brand">ROSSAPP<small>CHAT • CONNECT • BELONG</small></div>
+    <div id="authForm">
+      <h2 id="authTitle">Welcome back</h2><p id="authSubtitle">Sign in to continue your conversations.</p>
+      <div id="nameField" class="hidden"><label for="displayName">DISPLAY NAME</label><input class="field" id="displayName" maxlength="32" placeholder="How people see you"></div>
+      <label for="email">EMAIL</label><input class="field" id="email" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="password">PASSWORD</label><input class="field" id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters">
+      <div id="confirmField" class="hidden"><label for="confirmPassword">CONFIRM PASSWORD</label><input class="field" id="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat password"></div>
+      <div class="auth-actions"><button id="authSubmit" class="btn">Sign in</button><button id="googleBtn" class="btn secondary">Continue with Google</button></div>
+      <div id="authError" class="error" role="status"></div>
+      <div class="auth-switch"><span id="switchText">New to RossApp?</span> <button id="switchAuth" class="link">Create account</button></div>
     </div>
+    <p class="tiny" style="text-align:center;margin-top:24px">Your private conversations are for their members only.</p>
   </div>
-  <div class="mainWrap">
-    <div class="top"><div style="font-weight:900;letter-spacing:2px">ROSSAPP</div><div class="badge">LIVE</div></div>
-    <div class="channels">
-      <div class="ch active" data-ch="general"># general</div>
-      <div class="ch" data-ch="unlimited"># unlimited-chat</div>
-      <div class="ch" data-ch="memes"># memes</div>
-      <div class="ch" data-ch="groups"># groups</div>
+</section>
+
+<div id="appView" class="app hidden">
+  <aside class="sidebar">
+    <div class="side-head"><div class="brand">ROSSAPP<small>YOUR SPACE</small></div></div>
+    <button class="me-card" id="profileOpen" style="text-align:left;background:transparent;color:inherit;border:0">
+      <img id="sideAvatar" class="avatar" alt="Your profile picture"><div class="me-text"><strong id="sideName">Your profile</strong><span id="sideStatus">Account settings</span></div><span>⚙</span>
+    </button>
+    <div class="side-scroll">
+      <div class="section-title">MESSAGING</div>
+      <button class="nav-item active" data-view="channels"># Public channels</button>
+      <button class="nav-item" data-view="dms">✉ Direct messages</button>
+      <button class="nav-item" data-view="groups">◈ My groups <span class="count" id="groupCount"></span></button>
+      <button class="nav-item" data-view="people">◎ People</button>
+      <div class="section-title" style="margin-top:16px">YOUR CONVERSATIONS <button class="link" id="newGroupSide">＋</button></div>
+      <div id="conversationList"></div>
     </div>
-    <div id="msgs"></div>
-    <div class="bar"><input id="msgInput" placeholder="Type a message..."><button id="sendBtn">SEND</button></div>
-  </div>
+    <div class="side-foot"><button class="btn secondary" id="logoutBtn" style="width:100%">Log out</button></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="title-area"><h1 id="viewTitle"># general</h1><p id="viewSubtitle">Public community chat</p></div>
+      <div class="top-actions"><button id="inviteBtn" class="btn small hidden">Invite link</button><button id="newGroupBtn" class="btn small">＋ Group</button><button id="profileBtn" class="btn secondary small hide-mobile">Profile</button></div>
+    </header>
+    <div id="content" class="content"></div>
+    <div id="composerWrap" class="composer-wrap hidden"><form id="composer" class="composer"><input id="messageInput" class="field" maxlength="3000" placeholder="Write a message…" autocomplete="off"><button class="btn" type="submit">Send</button></form><div class="hint">Please be respectful. Never share passwords or sensitive information.</div></div>
+    <nav class="mobile-bar">
+      <button class="nav-item active" data-view="channels"># Channels</button><button class="nav-item" data-view="dms">✉ DMs</button><button class="nav-item" data-view="groups">◈ Groups</button><button class="nav-item" data-view="people">◎ People</button><button class="nav-item" id="mobileProfile">👤 Profile</button>
+    </nav>
+  </main>
 </div>
+<div id="modalRoot"></div><div id="toastRoot"></div>
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,updateProfile} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {getFirestore,collection,doc,setDoc,getDoc,addDoc,onSnapshot,query,where,orderBy,serverTimestamp,updateDoc,arrayUnion,arrayRemove,limit} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {getStorage,ref,uploadBytes,getDownloadURL} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCbRdUKuoewEKgr-NzHN2nhxeQwCxPSaRk",
   authDomain: "rossapp-7fa7b.firebaseapp.com",
   projectId: "rossapp-7fa7b",
   storageBucket: "rossapp-7fa7b.firebasestorage.app",
   messagingSenderId: "510967530207",
-  appId: "1:510967530207:web:e34bc22b9c4ef1e4ee5f6a",
-  measurementId: "G-5DPRQ1JQWL"
+  appId: "1:510967530207:web:e34bc22b9c4ef1e4ee5f6a"
 };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-let currentChannel = "general";
-const authDiv = document.getElementById('auth');
-const signupBox = document.getElementById('signupBox');
-const loginBox = document.getElementById('loginBox');
-document.querySelectorAll('.eye').forEach(eye=>{
-  eye.onclick = ()=>{
-    const input = document.getElementById(eye.dataset.target);
-    if(input.type === 'password'){ input.type='text'; eye.textContent='🙈'; }
-    else { input.type='password'; eye.textContent='👁️'; }
-  }
+const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getFirestore(app), storage=getStorage(app), googleProvider=new GoogleAuthProvider();
+const $=id=>document.getElementById(id);
+let me=null, authMode="login", activeView="channels", activeChannel="general", activeDM=null, activeGroup=null;
+let stopMessages=null, stopPeople=null, stopDMs=null, stopGroups=null, stopPresence=null, stopMembership=null;
+let people=[], myGroups=[], myDMs=[], messageCache=[], invitePending=new URLSearchParams(location.search).get("invite");
+const channels=[["general","General","The main community chat"],["unlimited","Unlimited chat","Open conversation"],["memes","Memes","Share your favorite memes"]];
+const fallbackAvatar=name=>"https://api.dicebear.com/7.x/initials/svg?seed="+encodeURIComponent(name||"R")+"&backgroundColor=193c27&textColor=7dffad";
+const safeName=u=>u?.displayName||u?.username||u?.email?.split("@")[0]||"RossApp user";
+const avatarOf=u=>u?.photoURL||fallbackAvatar(safeName(u));
+function escapeHTML(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function toast(text){$("toastRoot").innerHTML=`<div class="toast">${escapeHTML(text)}</div>`;setTimeout(()=>$("toastRoot").replaceChildren(),2800);}
+function setError(text){$("authError").textContent=text||"";}
+function setAuthMode(mode){authMode=mode;const signup=mode==="signup";$("authTitle").textContent=signup?"Create your account":"Welcome back";$("authSubtitle").textContent=signup?"Make your RossApp identity in a few seconds.":"Sign in to continue your conversations.";$("nameField").classList.toggle("hidden",!signup);$("confirmField").classList.toggle("hidden",!signup);$("authSubmit").textContent=signup?"Create account":"Sign in";$("switchText").textContent=signup?"Already have an account?":"New to RossApp?";$("switchAuth").textContent=signup?"Sign in":"Create account";$("password").autocomplete=signup?"new-password":"current-password";setError("");}
+$("switchAuth").onclick=()=>setAuthMode(authMode==="login"?"signup":"login");
+$("authSubmit").onclick=async()=>{setError("");const email=$("email").value.trim(),password=$("password").value;try{if(!email||!password)throw Error("Enter your email and password.");if(authMode==="signup"){const name=$("displayName").value.trim();if(name.length<2)throw Error("Display name must be at least 2 characters.");if(password.length<6)throw Error("Use a password with at least 6 characters.");if(password!==$("confirmPassword").value)throw Error("Passwords do not match.");const cred=await createUserWithEmailAndPassword(auth,email,password);await updateProfile(cred.user,{displayName:name});await saveUserDoc(cred.user,{username:name,displayName:name});}else{await signInWithEmailAndPassword(auth,email,password);}}catch(e){setError(friendlyError(e));}};
+$("googleBtn").onclick=async()=>{setError("");try{const result=await signInWithPopup(auth,googleProvider);await saveUserDoc(result.user,{});}catch(e){setError(friendlyError(e));}};
+function friendlyError(e){const map={"auth/email-already-in-use":"That email already has an account.","auth/invalid-email":"That email address looks invalid.","auth/weak-password":"Choose a stronger password.","auth/invalid-credential":"Email or password is incorrect.","auth/popup-closed-by-user":"Sign-in window was closed.","auth/unauthorized-domain":"Add this website's domain to Firebase Authentication > Settings > Authorized domains."};return map[e?.code]||e?.message||"Something went wrong. Please try again.";}
+async function saveUserDoc(user,extra={}){const name=String(extra.username||extra.displayName||user.displayName||user.email?.split("@")[0]||"User").trim().slice(0,32)||"User";const privateData={uid:user.uid,email:user.email||"",username:name,displayName:name,photoURL:extra.photoURL??user.photoURL??"",about:String(extra.about||"").slice(0,140),updatedAt:serverTimestamp(),...extra};await setDoc(doc(db,"users",user.uid),privateData,{merge:true});await setDoc(doc(db,"publicProfiles",user.uid),{uid:user.uid,username:name,displayName:name,photoURL:privateData.photoURL||"",about:privateData.about||"",updatedAt:serverTimestamp()},{merge:true});}
+function stopAll(){[stopMessages,stopPeople,stopDMs,stopGroups,stopPresence,stopMembership].forEach(fn=>{if(fn)fn();});stopMessages=stopPeople=stopDMs=stopGroups=stopPresence=stopMembership=null;}
+onAuthStateChanged(auth,async user=>{stopAll();me=user;if(!user){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");return;}
+ $("authView").classList.add("hidden");$("appView").classList.remove("hidden");
+ try{const userRef=doc(db,"users",user.uid),snap=await getDoc(userRef);await saveUserDoc(user,snap.exists()?snap.data():{});}catch(e){toast("Account loaded; profile sync needs Firestore rules.");console.warn(e);}
+ renderMe();startPresence();listenPeople();listenMyDMs();listenMyGroups();if(invitePending){const code=invitePending;invitePending=null;await joinFromInvite(code);}else openView("channels");
 });
-document.getElementById('toLogin').onclick = ()=>{signupBox.style.display='none';loginBox.style.display='block';}
-document.getElementById('toSignup').onclick = ()=>{loginBox.style.display='none';signupBox.style.display='block';}
-async function googleLogin(){
-  try{ await signInWithPopup(auth, provider); }
-  catch(err){ alert(err.message); }
-}
-document.getElementById('btnGoogleUp').onclick = googleLogin;
-document.getElementById('btnGoogleIn').onclick = googleLogin;
-document.querySelectorAll('.ch').forEach(el=>{
-  el.onclick = ()=>{
-    document.querySelectorAll('.ch').forEach(c=>c.classList.remove('active'));
-    el.classList.add('active');
-    currentChannel = el.dataset.ch;
-  }
-});
-document.getElementById('btnSignup').onclick = async ()=>{
-  const u=document.getElementById('suUser').value, e=document.getElementById('suEmail').value, p=document.getElementById('suPass').value, p2=document.getElementById('suPass2').value;
-  if(!u||!e||!p) return alert("Fill all fields");
-  if(p!==p2) return alert("Passwords don't match");
-  try{await createUserWithEmailAndPassword(auth,e,p);}catch(err){alert(err.message);}
-}
-document.getElementById('btnLogin').onclick = async ()=>{
-  const e=document.getElementById('liEmail').value, p=document.getElementById('liPass').value;
-  try{await signInWithEmailAndPassword(auth,e,p);}catch(err){alert(err.message);}
-}
-function listen(){
-  const q = query(collection(db,"messages"), orderBy("createdAt"));
-  onSnapshot(q, (snap)=>{
-    const box=document.getElementById('msgs'); box.innerHTML="";
-    snap.forEach(d=>{
-      const m=d.data();
-      if(m.channel!==currentChannel && m.channel) return;
-      const div=document.createElement('div'); div.className='msg';
-      div.innerHTML=`<b>${(m.username||'user')}</b><p>${m.text}</p>`;
-      box.appendChild(div);
-    });
-    box.scrollTop=box.scrollHeight;
-  });
-}
-document.getElementById('sendBtn').onclick = async ()=>{
-  const input=document.getElementById('msgInput'); const text=input.value.trim(); if(!text) return;
-  const user=auth.currentUser;
-  try{
-    await addDoc(collection(db,"messages"), {text, username:user.displayName || user.email.split('@')[0], channel:currentChannel, createdAt:serverTimestamp()});
-    input.value="";
-  }catch(e){alert(e.message)}
-}
-document.getElementById('msgInput').addEventListener('keydown', (e)=>{
-  if(e.key==='Enter') document.getElementById('sendBtn').click();
-});
-onAuthStateChanged(auth, (user)=>{
-  if(user){authDiv.style.display='none'; listen();} else {authDiv.style.display='flex';}
-});
+function renderMe(){const name=safeName(me);$("sideName").textContent=name;$("sideStatus").textContent=me.email||"RossApp member";$("sideAvatar").src=avatarOf(me);$("sideAvatar").alt=name+" profile picture";}
+async function startPresence(){try{await setDoc(doc(db,"presence",me.uid),{uid:me.uid,username:safeName(me),photoURL:me.photoURL||"",online:true,lastSeen:serverTimestamp()},{merge:true});if(stopPresence)stopPresence();stopPresence=()=>{};window.addEventListener("pagehide",()=>{setDoc(doc(db,"presence",me.uid),{online:false,lastSeen:serverTimestamp()},{merge:true}).catch(()=>{});},{once:true});}catch(e){console.warn("Presence unavailable",e);}}
+function listenPeople(){if(stopPeople)stopPeople();stopPeople=onSnapshot(query(collection(db,"publicProfiles"),limit(100)),snap=>{people=snap.docs.map(d=>d.data()).filter(u=>u.uid!==me.uid);if(activeView==="people")renderPeople();renderConversationList();},e=>toast("Could not load people. Check Firestore rules."));}
+function listenMyDMs(){if(stopDMs)stopDMs();stopDMs=onSnapshot(query(collection(db,"users",me.uid,"dmIndex"),orderBy("updatedAt","desc"),limit(50)),snap=>{myDMs=snap.docs.map(d=>d.data());renderConversationList();if(activeView==="dms")renderDMs();},e=>console.warn("DM index unavailable",e));}
+function listenMyGroups(){if(stopGroups)stopGroups();stopGroups=onSnapshot(query(collection(db,"groups"),where("memberIds","array-contains",me.uid),limit(100)),snap=>{myGroups=snap.docs.map(d=>({id:d.id,...d.data()}));$("groupCount").textContent=myGroups.length||"";renderConversationList();if(activeView==="groups")renderGroups();if(activeView==="group"&&activeGroup){const latest=myGroups.find(g=>g.id===activeGroup.id);if(!latest){openView("groups");toast("You no longer belong to that group.");}}},e=>toast("Could not load groups. Check Firestore rules."));}
+function renderConversationList(){const el=$("conversationList");el.innerHTML="";myDMs.slice(0,8).forEach(dm=>{const other=people.find(p=>p.uid===dm.otherUid)||{uid:dm.otherUid,username:dm.otherName,photoURL:dm.photoURL};const b=document.createElement("button");b.className="nav-item";b.innerHTML=`<img class="avatar xs" src="${escapeHTML(avatarOf(other))}" alt=""><span style="overflow:hidden;text-overflow:ellipsis">${escapeHTML(other.username||other.displayName||"Direct message")}</span>`;b.onclick=()=>openDM(other);el.appendChild(b);});myGroups.slice(0,8).forEach(g=>{const b=document.createElement("button");b.className="nav-item";b.innerHTML=`◈ <span style="overflow:hidden;text-overflow:ellipsis">${escapeHTML(g.name)}</span>`;b.onclick=()=>openGroup(g);el.appendChild(b);});}
+function setActiveNav(view){document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===view));}
+function stopCurrentMessages(){if(stopMessages){stopMessages();stopMessages=null;}}
+function openView(view){activeView=view;activeDM=null;activeGroup=null;stopCurrentMessages();setActiveNav(view);$("inviteBtn").classList.add("hidden");$("composerWrap").classList.add("hidden");if(view==="channels"){renderChannels();return;}if(view==="dms"){renderDMs();return;}if(view==="groups"){renderGroups();return;}if(view==="people"){renderPeople();return;}}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>openView(b.dataset.view)));
+function header(title,subtitle){$("viewTitle").textContent=title;$("viewSubtitle").textContent=subtitle;}
+function renderChannels(){header("# "+activeChannel,channels.find(c=>c[0]===activeChannel)?.[2]||"Community chat");$("newGroupBtn").classList.remove("hidden");$("content").innerHTML=`<div style="padding:12px 18px 0;display:flex;gap:8px;flex-wrap:wrap">${channels.map(c=>`<button class="btn small ${c[0]===activeChannel?"":"secondary"}" data-channel="${c[0]}"># ${escapeHTML(c[1])}</button>`).join("")}</div><div id="channelMessages" class="messages"></div>`;document.querySelectorAll("[data-channel]").forEach(b=>b.onclick=()=>{activeChannel=b.dataset.channel;renderChannels();});$("composerWrap").classList.remove("hidden");$("messageInput").placeholder="Message #"+activeChannel;listenChannelMessages();}
+function listenChannelMessages(){stopCurrentMessages();const boxId="channelMessages";stopMessages=onSnapshot(query(collection(db,"messages"),where("channel","==",activeChannel),orderBy("createdAt","asc"),limit(100)),snap=>{messageCache=snap.docs.map(d=>({id:d.id,...d.data()}));renderMessages(boxId,messageCache,"uid");},e=>{$(boxId).innerHTML=`<div class="empty">Unable to load channel messages. Check Firestore rules and the index error in your console.</div>`;console.error(e);});}
+function renderMessages(boxId,messages,uidField){const box=$(boxId);if(!box)return;if(!messages.length){box.innerHTML='<div class="empty">No messages yet. Start the conversation ✨</div>';return;}box.innerHTML=messages.map(m=>{const mine=m[uidField]===me.uid,name=m.username||m.fromName||"Member",photo=m.photoURL||fallbackAvatar(name),date=m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"sending";return `<div class="msg ${mine?"mine":""}"><img class="avatar xs" src="${escapeHTML(photo)}" alt=""><div class="msg-body"><div class="msg-head"><strong>${escapeHTML(name)}</strong><time>${escapeHTML(date)}</time></div><div class="bubble">${escapeHTML(m.text||"")}</div></div></div>`;}).join("");box.scrollTop=box.scrollHeight;}
+function renderPeople(){header("People","Find people on RossApp and start a private conversation.");$("newGroupBtn").classList.remove("hidden");$("content").innerHTML=`<div style="padding:18px;max-width:900px;width:100%;margin:0 auto"><input class="field" id="peopleSearch" placeholder="Search people by username…"><div id="peopleList" class="member-list"></div></div>`;const draw=()=>{const term=$("peopleSearch").value.toLowerCase();const list=$("peopleList");const filtered=people.filter(p=>(p.username||p.displayName||"").toLowerCase().includes(term));list.innerHTML=filtered.map(p=>`<div class="member-row"><img class="avatar" src="${escapeHTML(avatarOf(p))}" alt=""><div class="grow"><strong>${escapeHTML(p.username||p.displayName||"Member")}</strong><div class="tiny muted">RossApp member</div></div><button class="btn small" data-dm="${escapeHTML(p.uid)}">Message</button>${myGroups.some(g=>g.ownerUid===me.uid)?`<button class="btn secondary small" data-add="${escapeHTML(p.uid)}">Add to group</button>`:""}</div>`).join("")||'<div class="empty">No people found yet.</div>';list.querySelectorAll("[data-dm]").forEach(b=>b.onclick=()=>openDM(people.find(p=>p.uid===b.dataset.dm)));list.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>openAddMember(people.find(p=>p.uid===b.dataset.add)));};$("peopleSearch").oninput=draw;draw();}
+function renderDMs(){header("Direct messages","Private one-to-one conversations.");$("newGroupBtn").classList.remove("hidden");$("content").innerHTML=`<div style="padding:18px;max-width:900px;width:100%;margin:0 auto"><div class="section-title">YOUR CONVERSATIONS</div><div id="dmRows" class="member-list"></div><div class="section-title" style="margin-top:22px">START A NEW CHAT</div><div id="peopleDMRows" class="member-list"></div></div>`;const dm=$("dmRows");dm.innerHTML=myDMs.map(d=>{const p=people.find(x=>x.uid===d.otherUid)||{uid:d.otherUid,username:d.otherName,photoURL:d.photoURL};return `<div class="member-row"><img class="avatar" src="${escapeHTML(avatarOf(p))}" alt=""><div class="grow"><strong>${escapeHTML(p.username||p.displayName||"Conversation")}</strong><div class="tiny muted">Private conversation</div></div><button class="btn small" data-open-dm="${escapeHTML(p.uid)}">Open</button></div>`}).join("")||'<div class="empty">No DMs yet. Start one below.</div>';dm.querySelectorAll("[data-open-dm]").forEach(b=>b.onclick=()=>openDM(people.find(p=>p.uid===b.dataset.openDm)||{uid:b.dataset.openDm}));const list=$("peopleDMRows");list.innerHTML=people.slice(0,30).map(p=>`<div class="member-row"><img class="avatar" src="${escapeHTML(avatarOf(p))}" alt=""><div class="grow"><strong>${escapeHTML(p.username||p.displayName||"Member")}</strong></div><button class="btn secondary small" data-start-dm="${escapeHTML(p.uid)}">Message</button></div>`).join("")||'<div class="empty">Other users appear here after they create an account.</div>';list.querySelectorAll("[data-start-dm]").forEach(b=>b.onclick=()=>openDM(people.find(p=>p.uid===b.dataset.startDm)));}
+async function openDM(user){if(!user?.uid||user.uid===me.uid)return;activeView="dm";activeDM=user;activeGroup=null;stopCurrentMessages();setActiveNav("dms");header(user.username||user.displayName||"Direct message","Private • only you and this person");$("newGroupBtn").classList.add("hidden");$("inviteBtn").classList.add("hidden");$("content").innerHTML='<div id="dmMessages" class="messages"></div>';$("composerWrap").classList.remove("hidden");$("messageInput").placeholder="Message "+(user.username||"this person");const otherName=user.username||user.displayName||"Member";try{await setDoc(doc(db,"users",me.uid,"dmIndex",user.uid),{otherUid:user.uid,otherName,photoURL:user.photoURL||"",updatedAt:serverTimestamp()},{merge:true});}catch(e){console.warn("DM index",e);}stopMessages=onSnapshot(query(collection(db,"privateMessages"),where("participants","array-contains",me.uid),orderBy("createdAt","asc"),limit(200)),snap=>{const list=snap.docs.map(d=>({id:d.id,...d.data()})).filter(m=>m.participants?.includes(user.uid));renderMessages("dmMessages",list,"fromUid");},e=>{console.error(e);$("dmMessages").innerHTML='<div class="empty">Could not load private messages. Verify Firestore rules.</div>';});}
+function renderGroups(){header("My groups","Private group spaces, separate from public channels.");$("newGroupBtn").classList.remove("hidden");$("content").innerHTML=`<div style="padding:18px;max-width:900px;width:100%;margin:0 auto"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><h2 style="margin:0">Your group spaces</h2><p class="muted">Only group members can read or send messages.</p></div><button id="createGroupInline" class="btn">＋ Create group</button></div><div class="member-list" style="margin-top:18px">${myGroups.map(g=>`<div class="member-row"><div class="avatar">◈</div><div class="grow"><strong>${escapeHTML(g.name)}</strong><div class="tiny muted">${(g.memberIds||[]).length} member(s) · private</div></div><button class="btn small" data-group="${escapeHTML(g.id)}">Open</button><button class="btn secondary small" data-share="${escapeHTML(g.id)}">Invite</button></div>`).join("")||'<div class="empty">No groups yet. Create one to start a group conversation.</div>'}</div></div>`;$("createGroupInline").onclick=createGroup;document.querySelectorAll("[data-group]").forEach(b=>b.onclick=()=>openGroup(myGroups.find(g=>g.id===b.dataset.group)));document.querySelectorAll("[data-share]").forEach(b=>b.onclick=()=>makeInvite(myGroups.find(g=>g.id===b.dataset.share)));}
+function openGroup(group){if(!group)return;activeView="group";activeGroup=group;activeDM=null;stopCurrentMessages();setActiveNav("groups");header(group.name,`${(group.memberIds||[]).length} member(s) • private group`);$("newGroupBtn").classList.add("hidden");$("inviteBtn").classList.remove("hidden");$("content").innerHTML='<div id="groupMessages" class="messages"></div>'; $("composerWrap").classList.remove("hidden");$("messageInput").placeholder="Message "+group.name;$("inviteBtn").onclick=()=>makeInvite(group);stopMessages=onSnapshot(query(collection(db,"groups",group.id,"messages"),orderBy("createdAt","asc"),limit(200)),snap=>renderMessages("groupMessages",snap.docs.map(d=>({id:d.id,...d.data()})),"uid"),e=>{console.error(e);$("groupMessages").innerHTML='<div class="empty">Could not load this group. Membership or Firestore rules may be missing.</div>';});}
+async function createGroup(){showModal(`<h2>Create a group</h2><p>Make a separate private space for your people.</p><label>GROUP NAME</label><input id="groupName" class="field" maxlength="60" placeholder="e.g. Classmates"><label>DESCRIPTION (OPTIONAL)</label><input id="groupDesc" class="field" maxlength="160" placeholder="What is this group for?"><div class="modal-actions"><button class="btn secondary" data-close>Cancel</button><button class="btn" id="confirmCreateGroup">Create group</button></div>`);$("confirmCreateGroup").onclick=async()=>{const name=$("groupName").value.trim(),description=$("groupDesc").value.trim();if(name.length<2){toast("Group name must be at least 2 characters.");return;}try{const ref=await addDoc(collection(db,"groups"),{name,description,ownerUid:me.uid,memberIds:[me.uid],createdAt:serverTimestamp(),updatedAt:serverTimestamp()});closeModal();toast("Group created.");const g={id:ref.id,name,description,ownerUid:me.uid,memberIds:[me.uid]};openGroup(g);}catch(e){toast(friendlyError(e));console.error(e);}};}
+async function makeInvite(group){if(!group)return;try{const code=crypto.randomUUID().replaceAll("-","");await setDoc(doc(db,"groupInvites",code),{groupId:group.id,groupName:String(group.name||"Group").slice(0,60),description:String(group.description||"").slice(0,160),createdBy:me.uid,createdAt:serverTimestamp(),active:true});const url=new URL(location.href);url.searchParams.set("invite",code);await copyText(url.toString());showModal(`<h2>Group invite link</h2><p>Share this link with the people you want to invite to <strong>${escapeHTML(group.name)}</strong>. They must sign in, then choose to join.</p><input class="field" id="inviteUrl" readonly value="${escapeHTML(url.toString())}"><div class="modal-actions"><button class="btn secondary" data-close>Close</button><button class="btn" id="copyInvite">Copy link</button></div>`);$("copyInvite").onclick=async()=>{await copyText($("inviteUrl").value);toast("Invite link copied.");};}catch(e){toast("Could not create invite. Check Firestore rules.");console.error(e);}}
+async function joinFromInvite(code){try{const snap=await getDoc(doc(db,"groupInvites",code));if(!snap.exists()||!snap.data().active){toast("That invite link is invalid or expired.");return;}const inv=snap.data(),groupName=String(inv.groupName||"Private group").slice(0,60),description=String(inv.description||"A private RossApp group.").slice(0,160);const existing=myGroups.find(g=>g.id===inv.groupId);if(existing){toast("You're already a member.");openGroup(existing);return;}try{const alreadyMember=await getDoc(doc(db,"groups",inv.groupId));if(alreadyMember.exists()){const g={id:alreadyMember.id,...alreadyMember.data()};toast("You're already a member.");openGroup(g);return;}}catch(_){/* Non-members cannot read private group documents; continue to invite redemption. */}showModal(`<h2>Join ${escapeHTML(groupName)}?</h2><p>${escapeHTML(description||"A private RossApp group.")}</p><p>Joining lets you read and send messages in this group.</p><div class="modal-actions"><button class="btn secondary" data-close>Not now</button><button class="btn" id="confirmJoin">Join group</button></div>`);$("confirmJoin").onclick=async()=>{const joinButton=$("confirmJoin");joinButton.disabled=true;joinButton.textContent="Joining…";try{await updateDoc(doc(db,"groups",inv.groupId),{memberIds:arrayUnion(me.uid),updatedAt:serverTimestamp(),joinInviteCode:code});const joinedSnap=await getDoc(doc(db,"groups",inv.groupId));closeModal();if(joinedSnap.exists()){const joined={id:joinedSnap.id,...joinedSnap.data()};toast("You joined "+joined.name);openGroup(joined);}else{toast("Joined group, but it could not be opened yet.");openView("groups");}history.replaceState({}, "", location.pathname+location.hash);}catch(e){joinButton.disabled=false;joinButton.textContent="Join group";toast("Could not join. The invite may have expired or the group may be full.");console.error(e);}};}catch(e){toast("Could not check invite link. Check Firestore rules.");console.error(e);}}
+function openAddMember(person){if(!person)return;const ownedGroups=myGroups.filter(g=>g.ownerUid===me.uid);if(!ownedGroups.length){toast("Only a group owner can add members directly. Use an invite link instead.");return;}showModal(`<h2>Add ${escapeHTML(person.username||person.displayName||"member")}</h2><p>Choose one of your groups.</p><div class="member-list">${ownedGroups.map(g=>`<button class="member-row" style="width:100%;text-align:left;background:transparent;color:inherit" data-add-group="${escapeHTML(g.id)}"><span class="avatar">◈</span><span class="grow">${escapeHTML(g.name)}</span><span>＋</span></button>`).join("")}</div><div class="modal-actions"><button class="btn secondary" data-close>Cancel</button></div>`);document.querySelectorAll("[data-add-group]").forEach(b=>b.onclick=async()=>{const g=myGroups.find(x=>x.id===b.dataset.addGroup);try{await updateDoc(doc(db,"groups",g.id),{memberIds:arrayUnion(person.uid),updatedAt:serverTimestamp()});closeModal();toast("Member added to "+g.name);}catch(e){toast("Could not add member. Check group permissions.");console.error(e);}});}
+function showModal(html){$("modalRoot").innerHTML=`<div class="modal-backdrop"><div class="modal">${html}</div></div>`;$("modalRoot").querySelectorAll("[data-close]").forEach(b=>b.onclick=closeModal);$("modalRoot").querySelector(".modal-backdrop").addEventListener("click",e=>{if(e.target.classList.contains("modal-backdrop"))closeModal();});}
+function closeModal(){$("modalRoot").replaceChildren();}
+async function copyText(text){try{await navigator.clipboard.writeText(text);}catch{const input=document.createElement("textarea");input.value=text;document.body.append(input);input.select();document.execCommand("copy");input.remove();}}
+$("newGroupBtn").onclick=createGroup;$("newGroupSide").onclick=createGroup;$("profileBtn").onclick=$("profileOpen").onclick=$("mobileProfile").onclick=openProfile;
+async function openProfile(){const snap=await getDoc(doc(db,"users",me.uid)).catch(()=>null),data=snap?.data()||{};showModal(`<h2>Your profile</h2><p>Update how other people see you.</p><div style="display:flex;align-items:center;gap:13px;margin:16px 0"><img id="profilePreview" class="avatar lg" src="${escapeHTML(me.photoURL||data.photoURL||fallbackAvatar(safeName(me)))}" alt="Profile picture"><div><label for="photoFile">PROFILE PICTURE</label><input id="photoFile" type="file" accept="image/png,image/jpeg,image/webp" class="field" style="padding:8px;max-width:260px"><div class="tiny muted">JPG, PNG or WebP; under 3 MB.</div></div></div><label>DISPLAY NAME</label><input id="profileName" class="field" maxlength="32" value="${escapeHTML(data.username||safeName(me))}"><label>ABOUT YOU</label><input id="profileAbout" class="field" maxlength="140" value="${escapeHTML(data.about||"")}" placeholder="A short bio (optional)"><div class="modal-actions"><button class="btn secondary" data-close>Cancel</button><button class="btn" id="saveProfile">Save profile</button></div>`);let photoUrl=me.photoURL||data.photoURL||"";$("photoFile").onchange=()=>{const f=$("photoFile").files[0];if(!f)return;if(f.size>=3*1024*1024){toast("Image must be smaller than 3 MB.");$("photoFile").value="";return;}if(!["image/jpeg","image/png","image/webp"].includes(f.type)){toast("Choose a JPG, PNG or WebP image.");$("photoFile").value="";return;}$("profilePreview").src=URL.createObjectURL(f);};$("saveProfile").onclick=async()=>{const name=$("profileName").value.trim(),about=$("profileAbout").value.trim(),file=$("photoFile").files[0];if(name.length<2){toast("Name must be at least 2 characters.");return;}try{if(file){const path=ref(storage,`profilePictures/${me.uid}/avatar-${Date.now()}`);await uploadBytes(path,file,{contentType:file.type});photoUrl=await getDownloadURL(path);}await updateProfile(me,{displayName:name,photoURL:photoUrl||null});await setDoc(doc(db,"users",me.uid),{uid:me.uid,email:me.email||"",username:name,displayName:name,photoURL:photoUrl,about,updatedAt:serverTimestamp()},{merge:true});await setDoc(doc(db,"publicProfiles",me.uid),{uid:me.uid,username:name,displayName:name,photoURL:photoUrl,about,updatedAt:serverTimestamp()},{merge:true});await setDoc(doc(db,"presence",me.uid),{username:name,photoURL:photoUrl,updatedAt:serverTimestamp()},{merge:true});renderMe();closeModal();toast("Profile updated.");}catch(e){toast("Could not save profile. Check Storage/Firestore rules.");console.error(e);}};}
+$("logoutBtn").onclick=async()=>{try{await setDoc(doc(db,"presence",me.uid),{online:false,lastSeen:serverTimestamp()},{merge:true});await signOut(auth);}catch(e){toast(friendlyError(e));}};
+$("composer").onsubmit=async e=>{e.preventDefault();const text=$("messageInput").value.trim();if(!text||!me)return;const input=$("messageInput");input.disabled=true;try{const common={text,uid:me.uid,username:safeName(me),photoURL:me.photoURL||"",createdAt:serverTimestamp()};if(activeView==="channels"){await addDoc(collection(db,"messages"),{...common,channel:activeChannel});}else if(activeView==="dm"&&activeDM){const msgRef=await addDoc(collection(db,"privateMessages"),{...common,fromUid:me.uid,toUid:activeDM.uid,fromName:safeName(me),toName:activeDM.username||activeDM.displayName||"Member",participants:[me.uid,activeDM.uid].sort()});await Promise.all([setDoc(doc(db,"users",me.uid,"dmIndex",activeDM.uid),{otherUid:activeDM.uid,otherName:activeDM.username||activeDM.displayName||"Member",photoURL:activeDM.photoURL||"",lastMessageId:msgRef.id,updatedAt:serverTimestamp()},{merge:true}),setDoc(doc(db,"users",activeDM.uid,"dmIndex",me.uid),{otherUid:me.uid,otherName:safeName(me),photoURL:me.photoURL||"",lastMessageId:msgRef.id,updatedAt:serverTimestamp()},{merge:true})]);}else if(activeView==="group"&&activeGroup){await addDoc(collection(db,"groups",activeGroup.id,"messages"),common);}else{toast("Open a channel, DM, or group first.");return;}input.value="";}catch(err){toast("Message not sent. Check access rules.");console.error(err);}finally{input.disabled=false;input.focus();}};
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){/* Optional PWA support can be added when deployed. */}
 </script>
-</body>
-</html>
+</body></html>
