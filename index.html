@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROSSAPP</title>
+<meta name="theme-color" content="#0A0A0A">
+<style>
+:root{--bg:#0A0A0A;--surface:#141414;--border:#242424;--neon:#00FF88;--glow:rgba(0,255,136,.25);--text:#EEEEEE;--muted:#7A7A7A}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
+body{background:var(--bg);color:var(--text);height:100vh;display:flex;justify-content:center;overflow:hidden}
+#app{width:100%;max-width:480px;height:100vh;display:flex;flex-direction:column;background:var(--bg);position:relative}
+#auth{position:absolute;inset:0;z-index:20;background:radial-gradient(circle at 20% 30%,#0f2a1f 0%,#0A0A0A 70%);display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:1px solid var(--glow);border-radius:24px;padding:28px;box-shadow:0 0 40px var(--glow)}
+.logo h1{color:var(--neon);font-size:34px;letter-spacing:3px;text-align:center}
+.logo p{color:var(--muted);font-size:11px;letter-spacing:4px;text-align:center;margin-top:6px}
+label{font-size:12px;color:var(--neon);margin:14px 0 6px;display:block;font-weight:700;letter-spacing:1px}
+input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--border);background:#0f0f0f;color:#fff;outline:none}
+input:focus{border-color:var(--neon);box-shadow:0 0 0 3px var(--glow)}
+.btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;background:var(--neon);color:#000;font-weight:900;font-size:15px;cursor:pointer}
+.switch{text-align:center;margin-top:16px;font-size:13px;color:var(--muted)}
+.switch span{color:var(--neon);font-weight:800;cursor:pointer}
+.top{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface)}
+.badge{border:1px solid var(--neon);color:var(--neon);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800}
+.channels{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;border-bottom:1px solid var(--border)}
+.ch{padding:8px 14px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:13px;white-space:nowrap;cursor:pointer}
+.ch.active{background:var(--neon);color:#000;font-weight:800;border-color:var(--neon)}
+#msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg{background:var(--surface);border-left:3px solid var(--neon);padding:10px 14px;border-radius:12px;max-width:85%;animation:pop .2s ease}
+.msg b{color:var(--neon);font-size:11px;letter-spacing:1px}
+.msg p{margin-top:4px;font-size:14px;line-height:1.4;word-break:break-word}
+@keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.bar{display:flex;gap:10px;padding:14px;border-top:1px solid var(--border);background:var(--surface)}
+.bar input{flex:1}
+.bar button{padding:0 20px;border-radius:12px;border:none;background:var(--neon);color:#000;font-weight:900;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="auth">
+    <div class="card">
+      <div class="logo"><h1>ROSSAPP</h1><p>UNLIMITED EDITION</p></div>
+      <div id="signupBox">
+        <label>USERNAME</label><input id="suUser" placeholder="Your username">
+        <label>EMAIL</label><input id="suEmail" placeholder="Email address">
+        <label>PASSWORD</label><input id="suPass" type="password" placeholder="Password">
+        <label>CONFIRM</label><input id="suPass2" type="password" placeholder="Confirm password">
+        <button class="btn" id="btnSignup">JOIN UNLIMITED</button>
+        <div class="switch">Already have account? <span id="toLogin">Login</span></div>
+      </div>
+      <div id="loginBox" style="display:none">
+        <label>EMAIL</label><input id="liEmail" placeholder="Email">
+        <label>PASSWORD</label><input id="liPass" type="password" placeholder="Password">
+        <button class="btn" id="btnLogin">LOGIN</button>
+        <div class="switch">No account? <span id="toSignup">Create</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+    <div class="top"><div style="font-weight:900;letter-spacing:2px">ROSSAPP</div><div class="badge">LIVE</div></div>
+    <div class="channels">
+      <div class="ch active" data-ch="general"># general</div>
+      <div class="ch" data-ch="unlimited"># unlimited-chat</div>
+      <div class="ch" data-ch="memes"># memes</div>
+      <div class="ch" data-ch="groups"># groups</div>
+    </div>
+    <div id="msgs"></div>
+    <div class="bar"><input id="msgInput" placeholder="Type a message..."><button id="sendBtn">SEND</button></div>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// REPLACE THIS WITH YOUR REAL CONFIG FROM Firebase Console > Project Settings
+const firebaseConfig = {
+  apiKey: "AIzaSyD-EXAMPLE-REPLACE-ME",
+  authDomain: "rossapp-7fa7b.firebaseapp.com",
+  projectId: "rossapp-7fa7b",
+  storageBucket: "rossapp-7fa7b.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let currentChannel = "general";
+const authDiv = document.getElementById('auth');
+const signupBox = document.getElementById('signupBox');
+const loginBox = document.getElementById('loginBox');
+document.getElementById('toLogin').onclick = ()=>{signupBox.style.display='none';loginBox.style.display='block';}
+document.getElementById('toSignup').onclick = ()=>{loginBox.style.display='none';signupBox.style.display='block';}
+document.querySelectorAll('.ch').forEach(el=>{
+  el.onclick = ()=>{
+    document.querySelectorAll('.ch').forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    currentChannel = el.dataset.ch;
+    listen();
+  }
+});
+document.getElementById('btnSignup').onclick = async ()=>{
+  const u=document.getElementById('suUser').value, e=document.getElementById('suEmail').value, p=document.getElementById('suPass').value, p2=document.getElementById('suPass2').value;
+  if(!u||!e||!p) return alert("Fill all fields");
+  if(p!==p2) return alert("Passwords don't match");
+  try{await createUserWithEmailAndPassword(auth,e,p);}catch(err){alert(err.message);}
+}
+document.getElementById('btnLogin').onclick = async ()=>{
+  const e=document.getElementById('liEmail').value, p=document.getElementById('liPass').value;
+  try{await signInWithEmailAndPassword(auth,e,p);}catch(err){alert(err.message);}
+}
+function listen(){
+  const q = query(collection(db,"messages"), orderBy("createdAt"));
+  onSnapshot(q, (snap)=>{
+    const box=document.getElementById('msgs'); box.innerHTML="";
+    snap.forEach(d=>{
+      const m=d.data();
+      if(m.channel!==currentChannel && m.channel) return;
+      const div=document.createElement('div'); div.className='msg';
+      div.innerHTML=`<b>${m.username||'user'}</b><p>${m.text}</p>`;
+      box.appendChild(div);
+    });
+    box.scrollTop=box.scrollHeight;
+  });
+}
+document.getElementById('sendBtn').onclick = async ()=>{
+  const input=document.getElementById('msgInput'); const text=input.value.trim(); if(!text) return;
+  const user=auth.currentUser;
+  await addDoc(collection(db,"messages"), {text, username:user.email.split('@')[0], channel:currentChannel, createdAt:serverTimestamp()});
+  input.value="";
+}
+onAuthStateChanged(auth, (user)=>{
+  if(user){authDiv.style.display='none'; listen();} else {authDiv.style.display='flex';}
+});
+</script>
+</body>
+</html>
