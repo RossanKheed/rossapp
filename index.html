@@ -406,12 +406,13 @@
       const userRef = doc(db, "users", user.uid);
       const snap = await getDoc(userRef);
       if (!snap.exists()) {
+        const isCEO = user.email.includes("rossankheed");
         await setDoc(userRef, {
           uid: user.uid,
           displayName: user.displayName || user.email.split('@')[0],
           email: user.email,
           photoURL: user.photoURL || "https://via.placeholder.com/100",
-          bio: "The CEO and founder of ROSSAPP",
+          bio: isCEO ? "The CEO and founder of ROSSAPP" : "Hey there! I am using RossApp.",
           status: "online"
         }, { merge: true });
       }
