@@ -2,37 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ROSSAPP</title>
 <meta name="theme-color" content="#0A0A0A">
 <style>
 :root{--bg:#0A0A0A;--surface:#141414;--border:#242424;--neon:#00FF88;--glow:rgba(0,255,136,.25);--text:#EEEEEE;--muted:#7A7A7A}
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
-body{background:var(--bg);color:var(--text);height:100vh;display:flex;justify-content:center;overflow:hidden}
-#app{width:100%;max-width:480px;height:100vh;display:flex;flex-direction:column;background:var(--bg);position:relative}
-#auth{position:absolute;inset:0;z-index:20;background:radial-gradient(circle at 20% 30%,#0f2a1f 0%,#0A0A0A 70%);display:flex;align-items:center;justify-content:center;padding:20px}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);height:100dvh;min-height:100dvh;display:flex;justify-content:center;overflow:hidden}
+#app{width:100%;max-width:480px;height:100dvh;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);position:relative}
+#auth{position:absolute;inset:0;z-index:20;background:radial-gradient(circle at 20% 30%,#0f2a1f 0%,#0A0A0A 70%);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .card{width:100%;background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:1px solid var(--glow);border-radius:24px;padding:28px;box-shadow:0 0 40px var(--glow)}
 .logo h1{color:var(--neon);font-size:34px;letter-spacing:3px;text-align:center}
 .logo p{color:var(--muted);font-size:11px;letter-spacing:4px;text-align:center;margin-top:6px}
 label{font-size:12px;color:var(--neon);margin:14px 0 6px;display:block;font-weight:700;letter-spacing:1px}
+.input-wrap{position:relative}
+.input-wrap input{width:100%;padding:13px 40px 13px 14px;border-radius:12px;border:1px solid var(--border);background:#0f0f0f;color:#fff;outline:none}
 input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--border);background:#0f0f0f;color:#fff;outline:none}
 input:focus{border-color:var(--neon);box-shadow:0 0 0 3px var(--glow)}
+.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;user-select:none;font-size:18px;opacity:.7}
+.eye:hover{opacity:1}
 .btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;background:var(--neon);color:#000;font-weight:900;font-size:15px;cursor:pointer}
+.btn-google{width:100%;margin-top:12px;padding:13px;border:1px solid var(--border);border-radius:12px;background:#fff;color:#000;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.divider{text-align:center;margin:16px 0;color:var(--muted);font-size:11px;letter-spacing:2px;position:relative}
+.divider::before{content:'';position:absolute;left:0;top:50%;width:40%;height:1px;background:var(--border)}
+.divider::after{content:'';position:absolute;right:0;top:50%;width:40%;height:1px;background:var(--border)}
 .switch{text-align:center;margin-top:16px;font-size:13px;color:var(--muted)}
 .switch span{color:var(--neon);font-weight:800;cursor:pointer}
-.top{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface)}
+.top{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface);flex-shrink:0}
 .badge{border:1px solid var(--neon);color:var(--neon);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800}
-.channels{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;border-bottom:1px solid var(--border)}
+.channels{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;border-bottom:1px solid var(--border);flex-shrink:0}
 .ch{padding:8px 14px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:13px;white-space:nowrap;cursor:pointer}
 .ch.active{background:var(--neon);color:#000;font-weight:800;border-color:var(--neon)}
-#msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+#msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
 .msg{background:var(--surface);border-left:3px solid var(--neon);padding:10px 14px;border-radius:12px;max-width:85%;animation:pop .2s ease}
 .msg b{color:var(--neon);font-size:11px;letter-spacing:1px}
 .msg p{margin-top:4px;font-size:14px;line-height:1.4;word-break:break-word}
 @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
-.bar{display:flex;gap:10px;padding:14px;border-top:1px solid var(--border);background:var(--surface)}
+.bar{display:flex;gap:10px;padding:14px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
 .bar input{flex:1}
 .bar button{padding:0 20px;border-radius:12px;border:none;background:var(--neon);color:#000;font-weight:900;cursor:pointer}
+.mainWrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
 </style>
 </head>
 <body>
@@ -43,20 +53,23 @@ input:focus{border-color:var(--neon);box-shadow:0 0 0 3px var(--glow)}
       <div id="signupBox">
         <label>USERNAME</label><input id="suUser" placeholder="Your username">
         <label>EMAIL</label><input id="suEmail" placeholder="Email address">
-        <label>PASSWORD</label><input id="suPass" type="password" placeholder="Password">
-        <label>CONFIRM</label><input id="suPass2" type="password" placeholder="Confirm password">
+        <label>PASSWORD</label><div class="input-wrap"><input id="suPass" type="password" placeholder="Password"><span class="eye" data-target="suPass">👁️</span></div>
+        <label>CONFIRM</label><div class="input-wrap"><input id="suPass2" type="password" placeholder="Confirm password"><span class="eye" data-target="suPass2">👁️</span></div>
         <button class="btn" id="btnSignup">JOIN UNLIMITED</button>
+        <button class="btn-google" id="btnGoogleUp">Continue with Google</button>
+        <div class="divider">OR</div>
         <div class="switch">Already have account? <span id="toLogin">Login</span></div>
       </div>
       <div id="loginBox" style="display:none">
         <label>EMAIL</label><input id="liEmail" placeholder="Email">
-        <label>PASSWORD</label><input id="liPass" type="password" placeholder="Password">
+        <label>PASSWORD</label><div class="input-wrap"><input id="liPass" type="password" placeholder="Password"><span class="eye" data-target="liPass">👁️</span></div>
         <button class="btn" id="btnLogin">LOGIN</button>
+        <button class="btn-google" id="btnGoogleIn">Continue with Google</button>
         <div class="switch">No account? <span id="toSignup">Create</span></div>
       </div>
     </div>
   </div>
-  <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+  <div class="mainWrap">
     <div class="top"><div style="font-weight:900;letter-spacing:2px">ROSSAPP</div><div class="badge">LIVE</div></div>
     <div class="channels">
       <div class="ch active" data-ch="general"># general</div>
@@ -70,10 +83,8 @@ input:focus{border-color:var(--neon);box-shadow:0 0 0 3px var(--glow)}
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// REPLACE THIS WITH YOUR REAL CONFIG FROM Firebase Console > Project Settings
 const firebaseConfig = {
   apiKey: "AIzaSyCbRdUKuoewEKgr-NzHN2nhxeQwCxPSaRk",
   authDomain: "rossapp-7fa7b.firebaseapp.com",
@@ -83,22 +94,34 @@ const firebaseConfig = {
   appId: "1:510967530207:web:e34bc22b9c4ef1e4ee5f6a",
   measurementId: "G-5DPRQ1JQWL"
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 let currentChannel = "general";
 const authDiv = document.getElementById('auth');
 const signupBox = document.getElementById('signupBox');
 const loginBox = document.getElementById('loginBox');
+document.querySelectorAll('.eye').forEach(eye=>{
+  eye.onclick = ()=>{
+    const input = document.getElementById(eye.dataset.target);
+    if(input.type === 'password'){ input.type='text'; eye.textContent='🙈'; }
+    else { input.type='password'; eye.textContent='👁️'; }
+  }
+});
 document.getElementById('toLogin').onclick = ()=>{signupBox.style.display='none';loginBox.style.display='block';}
 document.getElementById('toSignup').onclick = ()=>{loginBox.style.display='none';signupBox.style.display='block';}
+async function googleLogin(){
+  try{ await signInWithPopup(auth, provider); }
+  catch(err){ alert(err.message); }
+}
+document.getElementById('btnGoogleUp').onclick = googleLogin;
+document.getElementById('btnGoogleIn').onclick = googleLogin;
 document.querySelectorAll('.ch').forEach(el=>{
   el.onclick = ()=>{
     document.querySelectorAll('.ch').forEach(c=>c.classList.remove('active'));
     el.classList.add('active');
     currentChannel = el.dataset.ch;
-    listen();
   }
 });
 document.getElementById('btnSignup').onclick = async ()=>{
@@ -119,7 +142,7 @@ function listen(){
       const m=d.data();
       if(m.channel!==currentChannel && m.channel) return;
       const div=document.createElement('div'); div.className='msg';
-      div.innerHTML=`<b>${m.username||'user'}</b><p>${m.text}</p>`;
+      div.innerHTML=`<b>${(m.username||'user')}</b><p>${m.text}</p>`;
       box.appendChild(div);
     });
     box.scrollTop=box.scrollHeight;
@@ -128,9 +151,14 @@ function listen(){
 document.getElementById('sendBtn').onclick = async ()=>{
   const input=document.getElementById('msgInput'); const text=input.value.trim(); if(!text) return;
   const user=auth.currentUser;
-  await addDoc(collection(db,"messages"), {text, username:user.email.split('@')[0], channel:currentChannel, createdAt:serverTimestamp()});
-  input.value="";
+  try{
+    await addDoc(collection(db,"messages"), {text, username:user.displayName || user.email.split('@')[0], channel:currentChannel, createdAt:serverTimestamp()});
+    input.value="";
+  }catch(e){alert(e.message)}
 }
+document.getElementById('msgInput').addEventListener('keydown', (e)=>{
+  if(e.key==='Enter') document.getElementById('sendBtn').click();
+});
 onAuthStateChanged(auth, (user)=>{
   if(user){authDiv.style.display='none'; listen();} else {authDiv.style.display='flex';}
 });
