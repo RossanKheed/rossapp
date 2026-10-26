@@ -1,90 +1,984 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ROSSAPP</title><style>:root{--bg:#0B1120;--card:#151D2F;--card2:#1E293B;--border:#233046;--green:#10B981;--text:#E2E8F0;--muted:#94A3B8;--dim:#64748B;--red:#ef4444}*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,sans-serif}body{background:var(--bg);color:var(--text);height:100dvh;display:flex;justify-content:center}#app{width:100%;max-width:500px;height:100dvh;display:flex;flex-direction:column;background:var(--bg);position:relative}#header{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);flex-shrink:0}#logo{color:var(--green);font-weight:900;font-size:20px}.btn-green{background:var(--green);color:#000;border:none;padding:8px 14px;border-radius:20px;font-weight:800;font-size:13px;cursor:pointer}#auth{position:absolute;inset:0;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px}.auth-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;width:100%;max-width:380px}input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--card2);color:var(--text);outline:none;margin-top:6px}label{font-size:10px;color:var(--muted);font-weight:800;margin-top:12px;display:block}.row{display:flex;gap:10px;margin-top:14px}.btn{flex:1;padding:12px;border-radius:12px;border:none;font-weight:800;cursor:pointer}.btn-p{background:var(--green);color:#000}.btn-s{background:var(--card2);color:var(--text);border:1px solid var(--border)}.btn-google{width:100%;margin-top:12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#fff;color:#000;font-weight:700;cursor:pointer}#content{flex:1;overflow-y:auto;display:flex;flex-direction:column}.pill-bar{display:flex;gap:8px;padding:10px 14px;overflow-x:auto;flex-shrink:0}.pill{padding:7px 13px;border-radius:20px;background:var(--card2);border:1px solid var(--border);color:var(--muted);font-size:12px;white-space:nowrap;cursor:pointer;flex-shrink:0}.pill.active{background:var(--green);color:#000;font-weight:800}.msg-list{flex:1;padding:10px 14px;display:flex;flex-direction:column;gap:9px}.msg-card,.post-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 12px;display:flex;gap:10px;position:relative}.post-card{flex-direction:column}.avatar{width:38px;height:38px;border-radius:50%;background:var(--card2);object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--green);font-size:13px;border:1px solid var(--border)}.msg-body{flex:1;min-width:0}.msg-body b{color:var(--green);font-size:12px}.msg-body p{font-size:13px;word-break:break-word;white-space:pre-wrap}.meta{font-size:10px;color:var(--dim);margin-top:4px;display:flex;gap:8px;align-items:center}.quote{border-left:2.5px solid var(--green);padding:4px 8px;margin:6px 0;background:rgba(16,185,129,.08);border-radius:6px;font-size:11px;color:var(--muted)}.reactions{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}.react-pill{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:2px 7px;font-size:11px;cursor:pointer}.react-pill.mine{border-color:var(--green);background:rgba(16,185,129,.15)}.react-bar{position:absolute;top:-38px;left:50px;background:var(--card2);border:1px solid var(--border);border-radius:24px;padding:6px 8px;display:flex;gap:6px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:5}.react-bar span{font-size:18px;cursor:pointer;padding:4px 6px}.post-actions{display:flex;gap:18px;margin-top:10px;padding-top:8px;border-top:1px solid var(--border)}.post-act{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);cursor:pointer;font-weight:600;user-select:none}.post-act.liked{color:var(--red)}.post-act:hover{color:var(--text)}.comment-list{margin-top:10px;display:flex;flex-direction:column;gap:8px}.comment-item{display:flex;gap:8px;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:8px 10px}.comment-item .avatar{width:28px;height:28px;font-size:10px}.dm-card,.group-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px;display:flex;align-items:center;gap:10px;margin:8px 14px;cursor:pointer}.group-card{justify-content:space-between}.composer{padding:10px 12px;border-top:1px solid var(--border);background:var(--bg);display:flex;gap:8px;align-items:center;flex-shrink:0}.composer input{flex:1;background:var(--card2);border-radius:24px;padding:11px 14px;margin:0;border:1px solid var(--border)}.icon-btn{width:40px;height:40px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;flex-shrink:0}.bottom-nav{display:flex;background:var(--bg);border-top:1px solid var(--border);padding:4px 0 6px;flex-shrink:0;overflow-x:auto}.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 2px;font-size:9px;color:var(--dim);cursor:pointer;font-weight:600;min-width:52px}.nav-item.active{color:var(--green)}.nav-item span{font-size:16px}.modal{position:absolute;inset:0;z-index:60;background:rgba(0,0,0,.65);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modal-card{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:18px;width:100%;max-width:400px;max-height:90dvh;overflow-y:auto}.reply-bar{background:var(--card2);border-left:3px solid var(--green);padding:7px 10px;margin:0 14px;border-radius:8px;display:none;justify-content:space-between;align-items:center;flex-shrink:0}.reply-bar.show{display:flex}img.msg-img,img.post-img{max-width:100%;border-radius:10px;margin-top:8px;max-height:280px;object-fit:cover;border:1px solid var(--border)}.img-preview{max-width:80px;max-height:60px;border-radius:8px;border:1px solid var(--border);margin-left:6px;display:none}</style></head><body><div id="app"><div id="header"><div id="logo"># ROSSAPP</div><div style="display:flex;align-items:center;gap:8px"><button class="btn-green" id="addGroupBtn">+ Group</button><div id="userTop" style="font-size:12px;font-weight:700;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div><span id="logoutBtn" style="color:var(--green);font-size:11px;cursor:pointer;text-decoration:underline">Logout</span></div></div><div id="auth"><div class="auth-card"><h2 style="text-align:center">Welcome to RossApp</h2><p style="color:var(--muted);text-align:center;font-size:13px;margin:8px 0 14px">Posts + Reactions + Invite Links</p><label>EMAIL</label><input id="liEmail" placeholder="name@example.com"><label>PASSWORD</label><input id="liPass" type="password" placeholder="••••••••"><div class="row"><button class="btn btn-p" id="btnLogin">Log In</button><button class="btn btn-s" id="btnSignup">Sign Up</button></div><button class="btn-google" id="btnGoogle">Sign in with Google</button><div id="authErr" style="color:var(--red);font-size:12px;margin-top:10px;text-align:center"></div></div></div><div class="reply-bar" id="replyBar"><div><div id="replyName" style="font-size:10px;color:var(--green);font-weight:800"></div><div id="replyText" style="font-size:11px;color:var(--muted);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div></div><div id="closeReply" style="cursor:pointer;padding:4px 8px">✕</div></div><div id="content"></div><div class="composer" id="composer"><label class="icon-btn" for="fileInput">📷</label><input type="file" id="fileInput" accept="image/*" hidden><img id="imgPrev" class="img-preview"><input id="msgInput" placeholder="Message #general..."><button class="btn-green" id="sendBtn">Send</button></div><div class="bottom-nav"><div class="nav-item active" data-nav="channels"><span>#</span>Channels</div><div class="nav-item" data-nav="dms"><span>✉️</span>DMs</div><div class="nav-item" data-nav="groups"><span>◇</span>Groups</div><div class="nav-item" data-nav="posts"><span>📝</span>Posts</div><div class="nav-item" data-nav="people"><span>◎</span>People</div><div class="nav-item" data-nav="profile"><span>👤</span>Profile</div></div><div class="modal" id="profileModal"><div class="modal-card"><h2>Your profile</h2><p style="color:var(--muted);font-size:12px;margin:6px 0 14px">Update how others see you</p><label>PROFILE PICTURE</label><div style="display:flex;gap:12px;align-items:center;margin:8px 0"><img id="profPicPreview" class="avatar" style="width:64px;height:64px"><div><label style="padding:8px 12px;border-radius:10px;background:var(--card);border:1px solid var(--border);cursor:pointer;font-size:12px;font-weight:700;display:inline-block;margin:0"><input type="file" id="profFile" accept="image/*" hidden>Choose File</label><div id="profFileName" style="font-size:10px;color:var(--dim);margin-top:6px">Auto compressed</div></div></div><label>DISPLAY NAME</label><input id="profName"><label>ABOUT YOU</label><textarea id="profAbout"></textarea><div class="row"><button class="btn btn-s" id="cancelProf">Cancel</button><button class="btn btn-p" id="saveProf">Save</button></div></div></div><div class="modal" id="inviteModal"><div class="modal-card"><h2>Invite Link</h2><p style="color:var(--muted);font-size:12px;margin:6px 0 14px">Anyone with this link will auto-join</p><input id="inviteLinkInput" readonly><div class="row"><button class="btn btn-s" id="closeInvite">Close</button><button class="btn btn-p" id="copyInvite">Copy</button></div><button class="btn-google" id="waShare">Share WhatsApp</button></div></div><div class="modal" id="commentModal"><div class="modal-card"><h3 id="commentPostTitle" style="font-size:14px">Comments</h3><div id="commentList" class="comment-list"></div><div style="display:flex;gap:8px;margin-top:12px"><input id="commentInput" placeholder="Write a comment..."><button class="btn-green" id="sendCommentBtn">Reply</button></div><div class="row"><button class="btn btn-s" id="closeComment">Close</button></div></div></div></div>
-<script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,updateProfile} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {getFirestore,collection,addDoc,onSnapshot,query,orderBy,serverTimestamp,doc,setDoc,getDoc,deleteDoc,updateDoc} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-const firebaseConfig={apiKey:"AIzaSyCbRdUKuoewEKgr-NzHN2nhxeQwCxPSaRk",authDomain:"rossapp-7fa7b.firebaseapp.com",projectId:"rossapp-7fa7b",storageBucket:"rossapp-7fa7b.firebasestorage.app",messagingSenderId:"510967530207",appId:"1:510967530207:web:e34bc22b9c4ef1e4ee5f6a"};
-const app=initializeApp(firebaseConfig);const auth=getAuth(app);const db=getFirestore(app);const provider=new GoogleAuthProvider();
-let currentUser=null,currentProfile=null,currentNav="channels",currentChannel="general",currentGroup=null,currentDM=null,replyTo=null,unsub=null,pendingImage=null,activeReactId=null,currentPostId=null,unsubComments=null;
-const EMOJIS=["❤️","😂","🔥","👍","😮","😢","🎉","🙏"];
-function ava(n){return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(n||'U')}&backgroundColor=151D2F,10B981`}
-function esc(s){return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function compress(file,maxKB=400){return new Promise(res=>{const r=new FileReader();r.onload=e=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');let w=img.width,h=img.height;const max=900;if(w>max||h>max){if(w>h){h*=max/w;w=max}else{w*=max/h;h=max}}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);let q=0.72;let data=c.toDataURL('image/jpeg',q);while(data.length/1024>maxKB&&q>0.2){q-=0.1;data=c.toDataURL('image/jpeg',q)}res(data)};img.src=e.target.result};r.readAsDataURL(file)})}
-function makeReactionsHtml(r){if(!r||!Object.keys(r).length)return'';let h='<div class="reactions">';for(const [e,uids] of Object.entries(r)){const mine=uids.includes(currentUser?.uid);h+=`<div class="react-pill ${mine?'mine':''}" data-emoji="${e}">${e} ${uids.length}</div>`}return h+'</div>'}
-async function toggleReaction(col,mid,emoji){try{const ref=doc(db,col,mid);const snap=await getDoc(ref);if(!snap.exists())return;let reacts=snap.data().reactions||{};for(const k in reacts){reacts[k]=reacts[k].filter(u=>u!==currentUser.uid);if(!reacts[k].length)delete reacts[k]}if(!snap.data().reactions?.[emoji]?.includes(currentUser.uid)){reacts[emoji]=[...(reacts[emoji]||[]),currentUser.uid]}await updateDoc(ref,{reactions:reacts});activeReactId=null}catch(e){alert('Reaction failed: '+e.message)}}
-const content=document.getElementById('content'),msgInput=document.getElementById('msgInput'),composer=document.getElementById('composer'),authDiv=document.getElementById('auth');
-document.querySelectorAll('.nav-item').forEach(n=>{n.onclick=()=>{try{document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));n.classList.add('active');currentNav=n.dataset.nav;if(currentNav==='profile')document.getElementById('profileModal').classList.add('show');else render()}catch(e){console.log(e)}}});
-document.getElementById('addGroupBtn').onclick=async()=>{try{const name=prompt("Group name?");if(!name)return;await addDoc(collection(db,"groups"),{name:name.trim(),createdBy:currentUser.uid,admins:[currentUser.uid],members:[currentUser.uid],createdAt:serverTimestamp(),private:true})}catch(e){alert(e.message)}};
-function setReply(m){replyTo=m;document.getElementById('replyBar').classList.add('show');document.getElementById('replyName').textContent=m.username||m.fromName||'Reply';document.getElementById('replyText').textContent=(m.text||'[image]').slice(0,80)}
-document.getElementById('closeReply').onclick=()=>{replyTo=null;document.getElementById('replyBar').classList.remove('show')};
-async function handleJoin(){try{const p=new URLSearchParams(location.search);const j=p.get('join');if(!j||!currentUser)return;const ref=doc(db,"groups",j);const snap=await getDoc(ref);if(!snap.exists())return;const g=snap.data();if(g.members?.includes(currentUser.uid)){currentGroup={...g,id:j};currentNav='groups';document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.querySelector('[data-nav="groups"]').classList.add('active');render();history.replaceState({},'',location.pathname);return}if(confirm(`Join "${g.name}"?`)){await updateDoc(ref,{members:[...(g.members||[]),currentUser.uid]});currentGroup={...g,id:j,members:[...(g.members||[]),currentUser.uid]};currentNav='groups';document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.querySelector('[data-nav="groups"]').classList.add('active');render();history.replaceState({},'',location.pathname)}}catch{}}
-async function render(){
-try{
-if(unsub){unsub();unsub=null}
-if(currentNav==='channels'){
-msgInput.placeholder=`Message #${currentChannel}...`;composer.style.display='flex';
-content.innerHTML=`<div class="pill-bar"><div class="pill ${currentChannel==='general'?'active':''}" data-ch="general"># General</div><div class="pill ${currentChannel==='unlimited'?'active':''}" data-ch="unlimited"># Unlimited chat</div><div class="pill ${currentChannel==='memes'?'active':''}" data-ch="memes"># Memes</div></div><div class="msg-list" id="msgList"></div>`;
-content.querySelectorAll('.pill').forEach(p=>p.onclick=()=>{currentChannel=p.dataset.ch;render()});
-const q=query(collection(db,"messages"),orderBy("createdAt","asc"));unsub=onSnapshot(q,snap=>{const list=document.getElementById('msgList');if(!list)return;list.innerHTML='';snap.forEach(d=>{const m=d.data();if(m.channel!==currentChannel)return;const div=document.createElement('div');div.className='msg-card';div.innerHTML=`<img class="avatar" src="${esc(m.photoURL||ava(m.username))}"><div class="msg-body"><div style="display:flex;justify-content:space-between"><b>${esc(m.username)}</b>${m.uid===currentUser.uid?`<span style="font-size:10px;color:var(--dim);cursor:pointer" data-del="${d.id}">delete</span>`:''}</div>${m.replyTo?`<div class="quote"><b>${esc(m.replyTo.username||'')}</b> ${esc(m.replyTo.text||'')}</div>`:''}<p>${esc(m.text||'')}</p>${m.imageURL?`<img class="msg-img" src="${m.imageURL}">`:''}${makeReactionsHtml(m.reactions)}<div class="meta"><span>${m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'now'}</span><span style="margin-left:auto;color:var(--green);cursor:pointer" class="reply-btn">↩ reply</span><span style="color:var(--green);cursor:pointer" class="react-btn">😊 react</span></div></div>`;div.querySelector('.react-btn').onclick=(e)=>{e.stopPropagation();document.querySelectorAll('.react-bar').forEach(el=>el.remove());if(activeReactId===d.id){activeReactId=null;return}activeReactId=d.id;const bar=document.createElement('div');bar.className='react-bar';EMOJIS.forEach(em=>{const s=document.createElement('span');s.textContent=em;s.onclick=(ev)=>{ev.stopPropagation();toggleReaction('messages',d.id,em);bar.remove()};bar.appendChild(s)});div.appendChild(bar)};div.querySelector('.reply-btn').onclick=(e)=>{e.stopPropagation();setReply(m)};div.onclick=(e)=>{if(e.target.dataset.del){if(confirm('Delete?'))deleteDoc(doc(db,"messages",d.id));return}if(e.target.classList.contains('react-pill')){toggleReaction('messages',d.id,e.target.dataset.emoji);return}};const img=div.querySelector('.msg-img');if(img)img.onclick=()=>window.open(img.src,'_blank');list.appendChild(div)});list.scrollTop=list.scrollHeight})}
-else if(currentNav==='posts'){
-composer.style.display='flex';msgInput.placeholder='What\'s happening? Post like Twitter...';
-content.innerHTML=`<div style="padding:14px"><h3>Posts</h3><p style="color:var(--muted);font-size:12px">Twitter-like feed • Like & comment</p></div><div class="msg-list" id="postList"></div>`;
-const q=query(collection(db,"posts"),orderBy("createdAt","desc"));unsub=onSnapshot(q,snap=>{const list=document.getElementById('postList');if(!list)return;list.innerHTML='';if(snap.empty){list.innerHTML=`<div style="text-align:center;padding:30px;color:var(--dim)">No posts yet. Be first to post!</div>`;return}snap.forEach(d=>{const m=d.data();const liked=m.likes?.includes(currentUser.uid);const div=document.createElement('div');div.className='post-card';div.innerHTML=`<div style="display:flex;gap:10px"><img class="avatar" src="${esc(m.photoURL||ava(m.username))}"><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>${esc(m.username)}</b> <span style="font-size:10px;color:var(--dim)">${m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'now'}</span></div>${m.uid===currentUser.uid?`<span style="font-size:10px;color:var(--dim);cursor:pointer" data-del="${d.id}">delete</span>`:''}</div><p style="margin-top:6px">${esc(m.text||'')}</p>${m.imageURL?`<img class="post-img" src="${m.imageURL}">`:''}<div class="post-actions"><div class="post-act ${liked?'liked':''}" data-like="${d.id}"><span>${liked?'❤️':'🤍'}</span> <span>${m.likes?.length||0} Likes</span></div><div class="post-act" data-comment="${d.id}"><span>💬</span> <span>${m.commentsCount||0} Comments</span></div><div class="post-act" data-share="${d.id}"><span>↗️</span> Share</div></div></div></div>`;div.querySelector('[data-like]')?.addEventListener('click',async(e)=>{e.stopPropagation();try{const ref=doc(db,"posts",d.id);const snap=await getDoc(ref);let likes=snap.data().likes||[];if(likes.includes(currentUser.uid))likes=likes.filter(u=>u!==currentUser.uid);else likes=[...likes,currentUser.uid];await updateDoc(ref,{likes,likesCount:likes.length})}catch(err){alert(err.message)}});div.querySelector('[data-comment]')?.addEventListener('click',()=>{currentPostId=d.id;document.getElementById('commentModal').classList.add('show');document.getElementById('commentPostTitle').textContent=`Comments • ${m.username}`;loadComments(d.id)});div.querySelector('[data-share]')?.addEventListener('click',()=>{const link=`${location.origin}${location.pathname}?post=${d.id}`;navigator.clipboard.writeText(link);alert('Post link copied!')});div.querySelector('[data-del]')?.addEventListener('click',async()=>{if(confirm('Delete post?')){try{await deleteDoc(doc(db,"posts",d.id))}catch(e){alert(e.message)}}});const img=div.querySelector('.post-img');if(img)img.onclick=()=>window.open(img.src,'_blank');list.appendChild(div)});});}
-else if(currentNav==='dms'){
-composer.style.display='flex';msgInput.placeholder=currentDM?`Message ${currentDM.username}...`:'Select user';content.innerHTML=`<div style="padding:14px"><h3>Direct messages</h3><p style="color:var(--muted);font-size:12px">Private one-to-one</p><div style="margin-top:10px;color:var(--dim);font-size:10px;font-weight:800;letter-spacing:1px">YOUR CONVERSATIONS</div></div><div id="dmList"></div><div class="msg-list" id="msgList"></div>`;const q=query(collection(db,"presence"),orderBy("lastSeen","desc"));onSnapshot(q,snap=>{const dmList=document.getElementById('dmList');if(!dmList)return;dmList.innerHTML='';snap.forEach(d=>{const u=d.data();if(u.uid===currentUser.uid)return;const row=document.createElement('div');row.className='dm-card';row.innerHTML=`<img class="avatar" src="${esc(u.photoURL||ava(u.username))}"><div style="flex:1"><div style="font-weight:700;font-size:13px">${esc(u.username)} <span style="font-size:10px;color:${u.online?'#10B981':'var(--dim)'}">● ${u.online?'online':'offline'}</span></div><div style="font-size:11px;color:var(--muted)">${esc(u.about||'Hey there!')}</div></div><button class="btn-green">Message</button>`;row.onclick=()=>{currentDM=u;render()};dmList.appendChild(row)})});if(currentDM){const q2=query(collection(db,"privateMessages"),orderBy("createdAt","asc"));unsub=onSnapshot(q2,snap=>{const list=document.getElementById('msgList');if(!list)return;list.innerHTML='';snap.forEach(d=>{const m=d.data();const rel=(m.fromUid===currentUser.uid&&m.toUid===currentDM.uid)||(m.fromUid===currentDM.uid&&m.toUid===currentUser.uid);if(!rel)return;const div=document.createElement('div');div.className='msg-card';div.innerHTML=`<img class="avatar" src="${esc(m.photoURL||ava(m.fromName))}"><div class="msg-body"><b>${esc(m.fromName)}</b><p>${esc(m.text||'')}</p>${m.imageURL?`<img class="msg-img" src="${m.imageURL}">`:''}${makeReactionsHtml(m.reactions)}<div class="meta"><span class="react-btn" style="color:var(--green);cursor:pointer">😊 react</span><span class="reply-btn" style="cursor:pointer">↩ reply</span></div></div>`;div.querySelector('.react-btn').onclick=(e)=>{e.stopPropagation();const bar=document.createElement('div');bar.className='react-bar';EMOJIS.forEach(em=>{const s=document.createElement('span');s.textContent=em;s.onclick=()=>{toggleReaction('privateMessages',d.id,em);bar.remove()};bar.appendChild(s)});div.appendChild(bar)};div.querySelector('.reply-btn').onclick=()=>setReply({username:m.fromName,text:m.text});div.onclick=(e)=>{if(e.target.classList.contains('react-pill'))toggleReaction('privateMessages',d.id,e.target.dataset.emoji)};list.appendChild(div)});list.scrollTop=list.scrollHeight})}
-}else if(currentNav==='groups'){
-composer.style.display=currentGroup?'flex':'none';content.innerHTML=currentGroup?`<div style="padding:14px;display:flex;justify-content:space-between;align-items:center"><div><h3>${esc(currentGroup.name)}</h3><p style="font-size:11px;color:var(--muted)">${currentGroup.members?.length||1} member(s)</p></div><div style="display:flex;gap:6px"><button class="btn-s" id="inviteBtn" style="padding:6px 10px;border-radius:16px;font-size:11px">🔗 Invite</button>${currentGroup.admins?.includes(currentUser.uid)?`<button class="btn-s" id="delGroupBtn" style="padding:6px 10px;border-radius:16px;font-size:11px;color:var(--red)">Delete</button>`:''}<button class="btn-s" id="backGroupBtn" style="padding:6px 10px;border-radius:16px;font-size:11px">Back</button></div></div><div class="msg-list" id="msgList"></div>`: `<div style="padding:14px"><div style="display:flex;justify-content:space-between"><div><h3>My groups</h3><p style="color:var(--muted);font-size:12px">Private group spaces</p><p style="color:var(--dim);font-size:10px;font-weight:800;letter-spacing:1px;margin-top:10px">YOUR GROUP SPACES</p></div><button class="btn-green" id="createGroupBtn">+ Create group</button></div><div id="groupList"></div></div>`;
-if(currentGroup){
-document.getElementById('backGroupBtn').onclick=()=>{currentGroup=null;render()};
-document.getElementById('inviteBtn').onclick=()=>{try{const link=`${location.origin}${location.pathname}?join=${currentGroup.id}`;document.getElementById('inviteLinkInput').value=link;document.getElementById('inviteModal').classList.add('show');document.getElementById('copyInvite').onclick=()=>{navigator.clipboard.writeText(link);alert('Copied!')};document.getElementById('waShare').onclick=()=>{window.open(`https://wa.me/?text=${encodeURIComponent('Join my group "'+currentGroup.name+'" on RossApp: '+link)}`,'_blank')};document.getElementById('closeInvite').onclick=()=>document.getElementById('inviteModal').classList.remove('show')}catch{}};
-document.getElementById('delGroupBtn')?.addEventListener('click',async()=>{if(confirm(`Delete "${currentGroup.name}"?`)){try{await deleteDoc(doc(db,"groups",currentGroup.id));currentGroup=null;render()}catch(e){alert(e.message)}}});
-const q=query(collection(db,"groupMessages"),orderBy("createdAt","asc"));unsub=onSnapshot(q,snap=>{const list=document.getElementById('msgList');if(!list)return;list.innerHTML='';snap.forEach(d=>{const m=d.data();if(m.groupId!==currentGroup.id)return;const div=document.createElement('div');div.className='msg-card';div.innerHTML=`<img class="avatar" src="${esc(m.photoURL||ava(m.username))}"><div class="msg-body"><b>${esc(m.username)}</b>${m.replyTo?`<div class="quote">${esc(m.replyTo.text||'')}</div>`:''}<p>${esc(m.text||'')}</p>${m.imageURL?`<img class="msg-img" src="${m.imageURL}">`:''}${makeReactionsHtml(m.reactions)}<div class="meta"><span class="react-btn" style="color:var(--green);cursor:pointer">😊 react</span><span class="reply-btn" style="cursor:pointer">↩ reply</span></div></div>`;div.querySelector('.react-btn').onclick=(e)=>{e.stopPropagation();const bar=document.createElement('div');bar.className='react-bar';EMOJIS.forEach(em=>{const s=document.createElement('span');s.textContent=em;s.onclick=()=>{toggleReaction('groupMessages',d.id,em);bar.remove()};bar.appendChild(s)});div.appendChild(bar)};div.querySelector('.reply-btn').onclick=()=>setReply(m);div.onclick=(e)=>{if(e.target.classList.contains('react-pill'))toggleReaction('groupMessages',d.id,e.target.dataset.emoji)};list.appendChild(div)});list.scrollTop=list.scrollHeight})}
-else{
-document.getElementById('createGroupBtn').onclick=document.getElementById('addGroupBtn').onclick;
-const q=query(collection(db,"groups"),orderBy("createdAt","desc"));onSnapshot(q,snap=>{const list=document.getElementById('groupList');if(!list)return;list.innerHTML='';snap.forEach(d=>{const g=d.data();g.id=d.id;if(!g.members?.includes(currentUser.uid))return;const row=document.createElement('div');row.className='group-card';row.innerHTML=`<div style="display:flex;gap:10px;align-items:center"><div class="avatar" style="background:#0f3d2a;color:var(--green)">◇</div><div><div style="font-weight:700;font-size:13px">${esc(g.name)}</div><div style="font-size:11px;color:var(--muted)">${g.members.length} member(s) • private</div></div></div><button class="btn-green">Open</button>`;row.onclick=()=>{currentGroup=g;render()};list.appendChild(row)})})}
-}else if(currentNav==='people'){
-composer.style.display='none';content.innerHTML=`<div style="padding:14px"><h3>People</h3><p style="color:var(--muted);font-size:12px">Find and connect</p></div><div id="peopleList"></div>`;const q=query(collection(db,"presence"),orderBy("lastSeen","desc"));onSnapshot(q,snap=>{const list=document.getElementById('peopleList');if(!list)return;list.innerHTML='';snap.forEach(d=>{const u=d.data();const row=document.createElement('div');row.className='dm-card';row.innerHTML=`<img class="avatar" src="${esc(u.photoURL||ava(u.username))}"><div style="flex:1"><div style="font-weight:700;font-size:13px">${esc(u.username)}</div><div style="font-size:11px;color:var(--muted)">${esc(u.about||'')}</div></div><span style="font-size:11px;color:${u.online?'#10B981':'var(--dim)'}">${u.online?'● online':'○ offline'}</span>`;list.appendChild(row)})})}
-}catch(e){console.error('Render error',e);content.innerHTML=`<div style="padding:20px;color:var(--red);text-align:center">Error loading, please reload page. ${esc(e.message)}</div>`}
-}
-async function loadComments(postId){
-try{
-const q=query(collection(db,"postComments"),orderBy("createdAt","asc"));if(unsubComments)unsubComments();unsubComments=onSnapshot(q,snap=>{
-const list=document.getElementById('commentList');if(!list)return;list.innerHTML='';snap.forEach(d=>{const c=d.data();if(c.postId!==postId)return;const div=document.createElement('div');div.className='comment-item';div.innerHTML=`<img class="avatar" src="${esc(c.photoURL||ava(c.username))}"><div style="flex:1"><div style="display:flex;justify-content:space-between"><b style="font-size:11px;color:var(--green)">${esc(c.username)}</b><span style="font-size:9px;color:var(--dim)">${c.createdAt?.toDate?c.createdAt.toDate().toLocaleTimeString():''}</span></div><p style="font-size:12px;margin-top:2px">${esc(c.text)}</p></div>`;list.appendChild(div)});if(list.children.length===0)list.innerHTML=`<div style="text-align:center;padding:10px;color:var(--dim);font-size:12px">No comments yet. Be first!</div>`;
-});
-}catch(e){console.log(e)}
-}
-document.getElementById('fileInput').onchange=async(e=>{try{const f=e.target.files[0];if(!f)return;pendingImage=await compress(f);document.getElementById('imgPrev').src=pendingImage;document.getElementById('imgPrev').style.display='block'}catch(err){alert('Image error: '+err)}});
-document.getElementById('sendBtn').onclick=async()=>{
-try{
-const text=msgInput.value.trim();if(!text&&!pendingImage)return;const btn=document.getElementById('sendBtn');btn.textContent='...';btn.disabled=true;
-const base={username:currentProfile?.displayName||currentUser.displayName||'User',uid:currentUser.uid,photoURL:currentProfile?.photoURL||'',replyTo:replyTo?{username:replyTo.username||replyTo.fromName||'',text:(replyTo.text||'').slice(0,120)}:null,createdAt:serverTimestamp(),text:text||'',imageURL:pendingImage||null,reactions:{}};
-if(currentNav==='channels'){await addDoc(collection(db,"messages"),{...base,channel:currentChannel})}
-else if(currentNav==='posts'){await addDoc(collection(db,"posts"),{username:base.username,uid:base.uid,photoURL:base.photoURL,text:text||'',imageURL:pendingImage||null,likes:[],likesCount:0,commentsCount:0,createdAt:serverTimestamp()})}
-else if(currentNav==='dms'&&currentDM){await addDoc(collection(db,"privateMessages"),{text:text||'',imageURL:pendingImage||null,fromUid:currentUser.uid,toUid:currentDM.uid,fromName:base.username,photoURL:base.photoURL,replyTo:base.replyTo,reactions:{},createdAt:serverTimestamp()})}
-else if(currentNav==='groups'&&currentGroup){await addDoc(collection(db,"groupMessages"),{...base,groupId:currentGroup.id})}
-msgInput.value='';pendingImage=null;document.getElementById('imgPrev').style.display='none';replyTo=null;document.getElementById('replyBar').classList.remove('show');
-btn.textContent='Send';btn.disabled=false;
-}catch(e){alert('Send failed: '+e.message);document.getElementById('sendBtn').textContent='Send';document.getElementById('sendBtn').disabled=false}
-};
-document.getElementById('sendCommentBtn').onclick=async()=>{
-try{
-const text=document.getElementById('commentInput').value.trim();if(!text||!currentPostId)return;
-const btn=document.getElementById('sendCommentBtn');btn.textContent='...';btn.disabled=true;
-await addDoc(collection(db,"postComments"),{postId:currentPostId,uid:currentUser.uid,username:currentProfile?.displayName||'User',photoURL:currentProfile?.photoURL||'',text,createdAt:serverTimestamp()});
-const postRef=doc(db,"posts",currentPostId);const snap=await getDoc(postRef);if(snap.exists()){const cur=snap.data().commentsCount||0;await updateDoc(postRef,{commentsCount:cur+1})}
-document.getElementById('commentInput').value='';btn.textContent='Reply';btn.disabled=false;
-}catch(e){alert(e.message);document.getElementById('sendCommentBtn').textContent='Reply';document.getElementById('sendCommentBtn').disabled=false}
-};
-document.getElementById('closeComment').onclick=()=>{document.getElementById('commentModal').classList.remove('show');if(unsubComments)unsubComments();currentPostId=null};
-msgInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('sendBtn').click()}});
-async function loadProfile(){try{const snap=await getDoc(doc(db,"profiles",currentUser.uid));if(snap.exists()){currentProfile=snap.data();document.getElementById('profName').value=currentProfile.displayName||'';document.getElementById('profAbout').value=currentProfile.about||'';if(currentProfile.photoURL)document.getElementById('profPicPreview').src=currentProfile.photoURL;document.getElementById('userTop').textContent=currentProfile.displayName} else {currentProfile={displayName:currentUser.displayName||currentUser.email.split('@')[0],about:'Hey there! I am using RossApp...',photoURL:currentUser.photoURL||''};document.getElementById('profName').value=currentProfile.displayName;document.getElementById('profAbout').value=currentProfile.about;document.getElementById('userTop').textContent=currentProfile.displayName}
-await setDoc(doc(db,"presence",currentUser.uid),{uid:currentUser.uid,username:currentProfile.displayName,photoURL:currentProfile.photoURL||'',about:currentProfile.about||'',online:true,lastSeen:serverTimestamp()},{merge:true});await handleJoin()}catch(e){console.log(e)}}
-document.getElementById('profFile').onchange=async(e=>{try{const f=e.target.files[0];if(!f)return;const comp=await compress(f,300);document.getElementById('profPicPreview').src=comp;document.getElementById('profPicPreview').dataset.temp=comp}catch(err){alert(err)}});
-document.getElementById('saveProf').onclick=async()=>{const name=document.getElementById('profName').value.trim();const about=document.getElementById('profAbout').value.trim();let photoURL=currentProfile?.photoURL||'';const temp=document.getElementById('profPicPreview').dataset.temp;if(temp)photoURL=temp;const btn=document.getElementById('saveProf');btn.textContent='Saving...';btn.disabled=true;try{await setDoc(doc(db,"profiles",currentUser.uid),{displayName:name,about,photoURL,uid:currentUser.uid,updatedAt:serverTimestamp()},{merge:true});await updateProfile(currentUser,{displayName:name,photoURL:photoURL||null}).catch(()=>{});await setDoc(doc(db,"presence",currentUser.uid),{uid:currentUser.uid,username:name,photoURL,about,online:true,lastSeen:serverTimestamp()},{merge:true});currentProfile={displayName:name,about,photoURL};document.getElementById('userTop').textContent=name;document.getElementById('profileModal').classList.remove('show');render()}catch(e){alert(e.message)}finally{btn.textContent='Save';btn.disabled=false}};
-document.getElementById('cancelProf').onclick=()=>document.getElementById('profileModal').classList.remove('show');
-document.getElementById('btnLogin').onclick=async()=>{const e=document.getElementById('liEmail').value.trim(),p=document.getElementById('liPass').value;if(!e||!p){document.getElementById('authErr').textContent='Enter email & password';return}try{await signInWithEmailAndPassword(auth,e,p)}catch(err){document.getElementById('authErr').textContent=err.message}};
-document.getElementById('btnSignup').onclick=async()=>{const e=document.getElementById('liEmail').value.trim(),p=document.getElementById('liPass').value;if(p.length<6){document.getElementById('authErr').textContent='Password min 6';return}try{await createUserWithEmailAndPassword(auth,e,p)}catch(err){document.getElementById('authErr').textContent=err.message}};
-document.getElementById('btnGoogle').onclick=async()=>{try{await signInWithPopup(auth,provider)}catch(e){document.getElementById('authErr').textContent=e.message}};
-document.getElementById('logoutBtn').onclick=async()=>{try{if(currentUser)await setDoc(doc(db,"presence",currentUser.uid),{online:false,lastSeen:serverTimestamp()},{merge:true});await signOut(auth)}catch{await signOut(auth)}};
-onAuthStateChanged(auth,async(user)=>{if(user){currentUser=user;authDiv.style.display='none';await loadProfile();render()}else{currentUser=null;authDiv.style.display='flex';content.innerHTML=''}});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>RossApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #0b0f19; color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .tab-active { background-color: #059669 !important; color: #ffffff !important; }
+    .bottom-nav-active { color: #10b981 !important; font-weight: 700; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col overflow-hidden select-none m-0 p-0">
+
+  <!-- TOP HEADER -->
+  <header class="h-14 bg-gray-900 border-b border-gray-800 px-4 flex justify-between items-center z-30 shrink-0">
+    <div class="flex items-center gap-2">
+      <h1 class="text-lg font-black text-emerald-400 tracking-tight"># ROSSAPP</h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="header-create-group-btn" class="hidden bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs px-2.5 py-1 rounded-lg transition">+ Group</button>
+      <div id="user-status" class="text-[11px] text-gray-400 flex items-center gap-1">Not logged in</div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 overflow-y-auto p-4 max-w-2xl w-full mx-auto flex flex-col pb-28">
+
+    <!-- AUTH SECTION (Logged Out) -->
+    <div id="auth-section" class="bg-gray-900 p-6 rounded-2xl border border-gray-800 space-y-4 my-auto shadow-2xl">
+      <div class="text-center space-y-1">
+        <h2 class="text-2xl font-bold text-white">Welcome to RossApp</h2>
+        <p class="text-xs text-gray-400">Connect, chat, social feed, and private spaces.</p>
+      </div>
+      
+      <!-- Email Login Form -->
+      <div class="space-y-3 pt-2">
+        <div>
+          <label class="text-[10px] font-semibold text-gray-400 uppercase mb-1 block">Email</label>
+          <input id="auth-email" type="email" placeholder="name@example.com" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500" />
+        </div>
+        
+        <div>
+          <label class="text-[10px] font-semibold text-gray-400 uppercase mb-1 block">Password</label>
+          <div class="relative">
+            <input id="auth-password" type="password" placeholder="••••••••" class="w-full p-3 pr-10 bg-gray-800 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500" />
+            <button type="button" id="toggle-password-btn" class="absolute right-3 top-3 text-gray-400 hover:text-white focus:outline-none text-base">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button id="email-login-btn" class="flex-1 bg-emerald-500 hover:bg-emerald-600 font-bold py-3 rounded-xl text-black text-sm transition">Log In</button>
+          <button id="email-signup-btn" class="flex-1 bg-gray-800 hover:bg-gray-700 font-bold py-3 rounded-xl text-white text-sm border border-gray-700 transition">Sign Up</button>
+        </div>
+      </div>
+
+      <div class="text-center text-xs text-gray-500 my-2">OR</div>
+
+      <!-- Google Login -->
+      <button id="google-login-btn" class="w-full bg-white text-gray-900 font-bold py-3 rounded-xl flex justify-center items-center gap-2 hover:bg-gray-100 text-sm transition">
+        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+        Sign in with Google
+      </button>
+    </div>
+
+    <!-- MAIN APP CONTENT (Logged In) -->
+    <div id="app-section" class="flex-1 flex flex-col hidden h-full">
+
+      <!-- 1. SOCIAL FEED TAB VIEW (Twitter/X style) -->
+      <div id="view-feed" class="view-panel flex-1 flex flex-col space-y-4">
+        <div>
+          <h2 class="text-base font-bold text-white">Social Feed</h2>
+          <p class="text-xs text-gray-400">What's happening in RossApp.</p>
+        </div>
+
+        <!-- Post Creator Box -->
+        <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-2xl space-y-3">
+          <textarea id="feed-post-input" rows="3" placeholder="What is happening?!" class="w-full bg-transparent text-white text-sm focus:outline-none resize-none placeholder-gray-500"></textarea>
+          <div class="flex justify-end items-center border-t border-gray-800/80 pt-2">
+            <button id="publish-post-btn" class="bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs px-4 py-2 rounded-xl transition">Post</button>
+          </div>
+        </div>
+
+        <!-- Posts Timeline Container -->
+        <div id="feed-posts-container" class="space-y-3">
+          <div class="text-xs text-gray-500 text-center py-6">Loading feed posts...</div>
+        </div>
+      </div>
+
+      <!-- 2. CHANNELS TAB VIEW -->
+      <div id="view-channels" class="view-panel flex-1 flex flex-col space-y-3 hidden">
+        <div class="flex gap-2 border-b border-gray-800 pb-2 overflow-x-auto no-scrollbar shrink-0">
+          <button class="channel-btn tab-active bg-gray-800 text-gray-300 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap" data-channel="general"># General</button>
+          <button class="channel-btn bg-gray-800 text-gray-300 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap" data-channel="unlimited"># Unlimited chat</button>
+          <button class="channel-btn bg-gray-800 text-gray-300 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap" data-channel="memes"># Memes</button>
+        </div>
+
+        <div id="channel-messages" class="flex-1 bg-gray-900/50 border border-gray-800 rounded-2xl p-3 overflow-y-auto space-y-3 min-h-[300px]">
+          <div class="text-gray-500 text-center py-8 text-xs">Loading channel messages...</div>
+        </div>
+
+        <div class="flex gap-2 pt-1 shrink-0">
+          <input id="channel-input" type="text" placeholder="Message #general..." class="flex-1 p-3 bg-gray-900 border border-gray-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500" />
+          <button id="send-channel-btn" class="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-5 py-3 rounded-xl text-sm transition">Send</button>
+        </div>
+      </div>
+
+      <!-- 3. DIRECT MESSAGES TAB VIEW -->
+      <div id="view-dms" class="view-panel flex-1 flex flex-col space-y-3 hidden">
+        <div class="shrink-0">
+          <h2 class="text-base font-bold text-white">Direct messages</h2>
+          <p class="text-xs text-gray-400">Private one-to-one conversations.</p>
+        </div>
+
+        <div id="dm-chat-box" class="flex-1 flex flex-col space-y-3 hidden">
+          <div class="flex justify-between items-center border-b border-gray-800 pb-2 shrink-0">
+            <span id="active-dm-target" class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">Chat</span>
+            <button id="back-to-users-btn" class="text-xs text-gray-400 hover:text-white">← Close Chat</button>
+          </div>
+          <div id="dm-messages" class="flex-1 bg-gray-900/50 border border-gray-800 rounded-2xl p-3 overflow-y-auto space-y-3 min-h-[300px]"></div>
+          <div class="flex gap-2 shrink-0">
+            <input id="dm-input" type="text" placeholder="Type a private message..." class="flex-1 p-3 bg-gray-900 border border-gray-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500" />
+            <button id="send-dm-btn" class="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-5 py-3 rounded-xl text-sm transition">Send</button>
+          </div>
+        </div>
+
+        <div id="dm-users-list" class="space-y-2 flex-1 overflow-y-auto">
+          <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">YOUR CONVERSATIONS</p>
+          <div id="users-container-dm" class="space-y-2">
+            <div class="text-xs text-gray-500 py-4 text-center">Loading user list...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. GROUPS TAB VIEW -->
+      <div id="view-groups" class="view-panel flex-1 flex flex-col space-y-3 hidden">
+        <div class="flex justify-between items-center shrink-0">
+          <div>
+            <h2 class="text-base font-bold text-white">My groups</h2>
+            <p class="text-xs text-gray-400">Private group spaces, separate from public channels.</p>
+          </div>
+          <button id="open-create-group-modal-btn" class="bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs px-3.5 py-2 rounded-xl transition">+ Create group</button>
+        </div>
+
+        <div id="group-chat-box" class="flex-1 flex flex-col space-y-3 hidden">
+          <div class="flex justify-between items-center border-b border-gray-800 pb-2 shrink-0">
+            <span id="active-group-target" class="text-xs font-bold text-emerald-400">Group</span>
+            <button id="back-to-groups-btn" class="text-xs text-gray-400 hover:text-white">← Leave View</button>
+          </div>
+          <div id="group-messages" class="flex-1 bg-gray-900/50 border border-gray-800 rounded-2xl p-3 overflow-y-auto space-y-3 min-h-[300px]"></div>
+          <div class="flex gap-2 shrink-0">
+            <input id="group-input" type="text" placeholder="Message group..." class="flex-1 p-3 bg-gray-900 border border-gray-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500" />
+            <button id="send-group-btn" class="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-5 py-3 rounded-xl text-sm transition">Send</button>
+          </div>
+        </div>
+
+        <div id="groups-list-container" class="space-y-2 flex-1 overflow-y-auto">
+          <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">YOUR GROUP SPACES</p>
+          <div id="groups-container" class="space-y-2">
+            <div class="text-xs text-gray-500 py-4 text-center">No groups found yet. Create one above!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. PEOPLE TAB VIEW -->
+      <div id="view-people" class="view-panel flex-1 flex flex-col space-y-3 hidden">
+        <div class="shrink-0">
+          <h2 class="text-base font-bold text-white">People</h2>
+          <p class="text-xs text-gray-400">Find people on RossApp and see who is online.</p>
+        </div>
+
+        <input id="search-people-input" type="text" placeholder="Search people by username..." class="w-full p-3 bg-gray-900 border border-gray-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500 shrink-0" />
+
+        <div id="people-list-container" class="space-y-2 pt-1 flex-1 overflow-y-auto">
+          <div class="text-xs text-gray-500 text-center py-4">Loading community members...</div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION BAR (6 TABS) -->
+  <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 h-16 bg-gray-900 border-t border-gray-800 flex justify-around items-center px-2 z-40 hidden">
+    <button class="nav-tab-btn bottom-nav-active flex flex-col items-center gap-0.5 text-[11px] text-gray-400" data-target="view-feed">
+      <span class="text-base leading-none">🐦</span>
+      <span>Feed</span>
+    </button>
+    <button class="nav-tab-btn flex flex-col items-center gap-0.5 text-[11px] text-gray-400" data-target="view-channels">
+      <span class="text-base leading-none">#</span>
+      <span>Channels</span>
+    </button>
+    <button class="nav-tab-btn flex flex-col items-center gap-0.5 text-[11px] text-gray-400" data-target="view-dms">
+      <span class="text-base leading-none">✉️</span>
+      <span>DMs</span>
+    </button>
+    <button class="nav-tab-btn flex flex-col items-center gap-0.5 text-[11px] text-gray-400" data-target="view-groups">
+      <span class="text-base leading-none">◈</span>
+      <span>Groups</span>
+    </button>
+    <button class="nav-tab-btn flex flex-col items-center gap-0.5 text-[11px] text-gray-400" data-target="view-people">
+      <span class="text-base leading-none">⦿</span>
+      <span>People</span>
+    </button>
+    <button id="nav-profile-btn" class="flex flex-col items-center gap-0.5 text-[11px] text-gray-400">
+      <span class="text-base leading-none">👤</span>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <!-- PROFILE MODAL -->
+  <div id="profile-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden p-4 z-50">
+    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-full max-w-md space-y-4 shadow-2xl">
+      <div>
+        <h3 class="text-xl font-bold text-white">Your profile</h3>
+        <p class="text-xs text-gray-400">Update how other people see you.</p>
+      </div>
+      
+      <div class="space-y-2">
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">PROFILE PICTURE</label>
+        <div class="flex items-center gap-4">
+          <img id="profile-avatar-preview" src="https://via.placeholder.com/100" class="w-16 h-16 rounded-full object-cover border-2 border-emerald-500 shadow-md" />
+          <div class="space-y-1 flex-1">
+            <input id="profile-file-input" type="file" accept="image/*" class="text-xs text-gray-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-gray-800 file:text-gray-200 hover:file:bg-gray-700 w-full" />
+            <p class="text-[10px] text-gray-500">JPG, PNG or WebP; saved directly in cloud.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">DISPLAY NAME</label>
+        <input id="profile-name" type="text" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500" />
+      </div>
+
+      <div>
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">ABOUT YOU</label>
+        <textarea id="profile-bio" rows="3" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="close-profile-btn" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 rounded-xl text-gray-300 text-sm font-semibold transition">Cancel</button>
+        <button id="save-profile-btn" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-black font-bold rounded-xl text-sm transition">Save profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE GROUP MODAL -->
+  <div id="create-group-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden p-4 z-50">
+    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-full max-w-md space-y-4 shadow-2xl">
+      <div>
+        <h3 class="text-lg font-bold text-white">Create a Group Space</h3>
+        <p class="text-xs text-gray-400">Only group members can read or send messages.</p>
+      </div>
+      
+      <div>
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">GROUP NAME</label>
+        <input id="group-name-input" type="text" placeholder="e.g. Form 5 (JPM)" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500" />
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="close-create-group-btn" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 rounded-xl text-gray-300 text-sm font-semibold transition">Cancel</button>
+        <button id="confirm-create-group-btn" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-black font-bold rounded-xl text-sm transition">Create Group</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE SCRIPT LOGIC -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithPopup, 
+      GoogleAuthProvider, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      signOut, 
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      doc, 
+      setDoc, 
+      getDoc,
+      getDocs,
+      addDoc, 
+      query, 
+      where, 
+      onSnapshot, 
+      serverTimestamp,
+      updateDoc,
+      arrayUnion,
+      arrayRemove
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbRdUKuoewEKgr-NzHN2nhxeQwCxPSaRk",
+      authDomain: "rossapp-7fa7b.firebaseapp.com",
+      projectId: "rossapp-7fa7b",
+      storageBucket: "rossapp-7fa7b.firebasestorage.app",
+      messagingSenderId: "510967530207",
+      appId: "1:510967530207:web:baefad473d574f08ee5f6a",
+      measurementId: "G-Z2GCLKR37X"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    let currentUser = null;
+    let currentChannel = "general";
+    let activeDMTargetUID = null;
+    let activeGroupID = null;
+    let base64AvatarString = "";
+    let allUsersCache = [];
+
+    let unsubChannel = null;
+    let unsubDM = null;
+    let unsubGroup = null;
+    let unsubFeed = null;
+
+    const authSection = document.getElementById('auth-section');
+    const appSection = document.getElementById('app-section');
+    const bottomNav = document.getElementById('bottom-nav');
+    const userStatus = document.getElementById('user-status');
+    const headerCreateGroupBtn = document.getElementById('header-create-group-btn');
+
+    async function setPresence(status) {
+      if (!currentUser) return;
+      try {
+        await setDoc(doc(db, "users", currentUser.uid), {
+          status: status,
+          lastSeen: serverTimestamp()
+        }, { merge: true });
+      } catch (e) {
+        console.error("Presence error", e);
+      }
+    }
+
+    setInterval(() => { if (currentUser) setPresence("online"); }, 30000);
+    window.addEventListener("beforeunload", () => setPresence("offline"));
+
+    function getStatusBadgeHTML(u) {
+      const isOnline = u.status === "online";
+      return isOnline 
+        ? `<span class="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> online</span>`
+        : `<span class="inline-flex items-center gap-1 text-[10px] text-gray-500"><span class="w-2 h-2 rounded-full bg-gray-600"></span> offline</span>`;
+    }
+
+    const authPasswordInput = document.getElementById('auth-password');
+    const togglePasswordBtn = document.getElementById('toggle-password-btn');
+    
+    togglePasswordBtn.addEventListener('click', () => {
+      const type = authPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      authPasswordInput.setAttribute('type', type);
+      togglePasswordBtn.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
+    document.getElementById('google-login-btn').addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (err) {
+        alert("Google Login Error: " + err.message);
+      }
+    });
+
+    document.getElementById('email-login-btn').addEventListener('click', async () => {
+      const email = document.getElementById('auth-email').value;
+      const password = authPasswordInput.value;
+      if(!email || !password) return alert("Please enter email and password");
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        alert("Login failed: " + err.message);
+      }
+    });
+
+    document.getElementById('email-signup-btn').addEventListener('click', async () => {
+      const email = document.getElementById('auth-email').value;
+      const password = authPasswordInput.value;
+      if(!email || !password) return alert("Please enter email and password");
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        alert("Signup failed: " + err.message);
+      }
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        authSection.classList.add('hidden');
+        appSection.classList.remove('hidden');
+        bottomNav.classList.remove('hidden');
+        headerCreateGroupBtn.classList.remove('hidden');
+        
+        userStatus.innerHTML = `<span class="font-bold text-white">${user.displayName || user.email.split('@')[0]}</span> <button id="logout-btn" class="text-red-400 underline ml-1">Logout</button>`;
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+          await setPresence("offline");
+          signOut(auth);
+        });
+
+        await syncUserProfileDoc(user);
+        await setPresence("online");
+        
+        loadFeedPosts();
+        loadChannelMessages(currentChannel);
+        listenToPeopleAndDMs();
+        loadGroups();
+      } else {
+        currentUser = null;
+        authSection.classList.remove('hidden');
+        appSection.classList.add('hidden');
+        bottomNav.classList.add('hidden');
+        headerCreateGroupBtn.classList.add('hidden');
+        userStatus.textContent = 'Not logged in';
+      }
+    });
+
+    async function syncUserProfileDoc(user) {
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
+      if (!snap.exists()) {
+        const isCEO = user.email.includes("rossankheed");
+        await setDoc(userRef, {
+          uid: user.uid,
+          displayName: user.displayName || user.email.split('@')[0],
+          email: user.email,
+          photoURL: user.photoURL || "https://via.placeholder.com/100",
+          bio: isCEO ? "The CEO and founder of ROSSAPP" : "Hey there! I am using RossApp.",
+          status: "online"
+        }, { merge: true });
+      }
+    }
+
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const targetId = btn.getAttribute('data-target');
+        
+        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('bottom-nav-active'));
+        btn.classList.add('bottom-nav-active');
+
+        document.querySelectorAll('.view-panel').forEach(panel => panel.classList.add('hidden'));
+        document.getElementById(targetId).classList.remove('hidden');
+      });
+    });
+
+    // --- SOCIAL FEED LOGIC (Twitter/X Style) ---
+    document.getElementById('publish-post-btn').addEventListener('click', async () => {
+      const input = document.getElementById('feed-post-input');
+      const text = input.value.trim();
+      if (!text || !currentUser) return;
+
+      const userDoc = (await getDoc(doc(db, "users", currentUser.uid))).data();
+
+      try {
+        await addDoc(collection(db, "posts"), {
+          text: text,
+          uid: currentUser.uid,
+          username: userDoc?.displayName || currentUser.email.split('@')[0],
+          photoURL: userDoc?.photoURL || "https://via.placeholder.com/100",
+          likes: [],
+          timestamp: serverTimestamp()
+        });
+        input.value = "";
+      } catch (err) {
+        alert("Failed to post: " + err.message);
+      }
+    });
+
+    function loadFeedPosts() {
+      if (unsubFeed) unsubFeed();
+      const container = document.getElementById('feed-posts-container');
+
+      unsubFeed = onSnapshot(collection(db, "posts"), (snapshot) => {
+        container.innerHTML = "";
+        let docs = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        docs.sort((a, b) => (b.timestamp?.toMillis?.() || 0) - (a.timestamp?.toMillis?.() || 0));
+
+        if (docs.length === 0) {
+          container.innerHTML = `<div class="text-xs text-gray-500 text-center py-6">No posts yet. Be the first to share something!</div>`;
+          return;
+        }
+
+        docs.forEach(post => {
+          const likesList = post.likes || [];
+          const hasLiked = likesList.includes(currentUser.uid);
+          const likeCount = likesList.length;
+
+          const card = document.createElement('div');
+          card.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl space-y-3 shadow-sm";
+          card.innerHTML = `
+            <div class="flex items-start gap-3">
+              <img src="${post.photoURL || 'https://via.placeholder.com/100'}" class="w-10 h-10 rounded-full object-cover border border-emerald-500/40" />
+              <div class="flex-1">
+                <div class="text-xs font-bold text-white">${post.username || 'User'}</div>
+                <div class="text-xs text-gray-200 mt-1 leading-relaxed whitespace-pre-wrap">${post.text}</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-6 pt-2 border-t border-gray-800/60 text-xs text-gray-400">
+              <button class="like-post-btn flex items-center gap-1.5 hover:text-emerald-400 transition" data-id="${post.id}">
+                <span>${hasLiked ? '❤️' : '🤍'}</span>
+                <span>${likeCount}</span>
+              </button>
+              <button class="toggle-comments-btn flex items-center gap-1.5 hover:text-emerald-400 transition" data-id="${post.id}">
+                <span>💬</span>
+                <span>Comments</span>
+              </button>
+            </div>
+
+            <!-- Comments Section (Hidden by default) -->
+            <div id="comments-section-${post.id}" class="hidden space-y-3 pt-3 border-t border-gray-800/60">
+              <div id="comments-list-${post.id}" class="space-y-2 max-h-48 overflow-y-auto">
+                <div class="text-[11px] text-gray-500 text-center py-2">Loading comments...</div>
+              </div>
+              <div class="flex gap-2">
+                <input type="text" id="comment-input-${post.id}" placeholder="Write a reply..." class="flex-1 p-2.5 bg-gray-800 border border-gray-700 rounded-xl text-xs text-white focus:outline-none focus:border-emerald-500" />
+                <button class="send-comment-btn bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs px-3.5 py-2.5 rounded-xl transition" data-id="${post.id}">Reply</button>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        // Like button listeners
+        document.querySelectorAll('.like-post-btn').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const postId = btn.getAttribute('data-id');
+            const postRef = doc(db, "posts", postId);
+            const postDoc = await getDoc(postRef);
+            if (!postDoc.exists()) return;
+
+            const data = postDoc.data();
+            let currentLikes = data.likes || [];
+
+            if (currentLikes.includes(currentUser.uid)) {
+              currentLikes = currentLikes.filter(id => id !== currentUser.uid);
+            } else {
+              currentLikes.push(currentUser.uid);
+            }
+
+            await updateDoc(postRef, { likes: currentLikes });
+          });
+        });
+
+        // Toggle comments section listeners
+        document.querySelectorAll('.toggle-comments-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const postId = btn.getAttribute('data-id');
+            const commentSec = document.getElementById(`comments-section-${postId}`);
+            commentSec.classList.toggle('hidden');
+            if (!commentSec.classList.contains('hidden')) {
+              loadPostComments(postId);
+            }
+          });
+        });
+
+        // Send comment listeners
+        document.querySelectorAll('.send-comment-btn').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const postId = btn.getAttribute('data-id');
+            const inputEl = document.getElementById(`comment-input-${postId}`);
+            const commentText = inputEl.value.trim();
+            if (!commentText) return;
+
+            const userDoc = (await getDoc(doc(db, "users", currentUser.uid))).data();
+
+            await addDoc(collection(db, "posts", postId, "comments"), {
+              text: commentText,
+              uid: currentUser.uid,
+              username: userDoc?.displayName || currentUser.email.split('@')[0],
+              photoURL: userDoc?.photoURL || "https://via.placeholder.com/100",
+              timestamp: serverTimestamp()
+            });
+            inputEl.value = "";
+          });
+        });
+      });
+    }
+
+    function loadPostComments(postId) {
+      const commentsContainer = document.getElementById(`comments-list-${postId}`);
+      const q = query(collection(db, "posts", postId, "comments"));
+      
+      onSnapshot(q, (snapshot) => {
+        commentsContainer.innerHTML = "";
+        let comments = snapshot.docs.map(d => d.data());
+        comments.sort((a, b) => (a.timestamp?.toMillis?.() || 0) - (b.timestamp?.toMillis?.() || 0));
+
+        if (comments.length === 0) {
+          commentsContainer.innerHTML = `<div class="text-[11px] text-gray-500 text-center py-2">No replies yet. Be the first!</div>`;
+          return;
+        }
+
+        comments.forEach(com => {
+          const div = document.createElement('div');
+          div.className = "flex items-start gap-2 bg-gray-800/40 p-2 rounded-xl text-xs";
+          div.innerHTML = `
+            <img src="${com.photoURL || 'https://via.placeholder.com/100'}" class="w-6 h-6 rounded-full object-cover mt-0.5 border border-emerald-500/40" />
+            <div>
+              <div class="font-bold text-emerald-400 text-[11px]">${com.username || 'User'}</div>
+              <div class="text-gray-200 text-xs mt-0.5 leading-relaxed">${com.text}</div>
+            </div>
+          `;
+          commentsContainer.appendChild(div);
+        });
+      });
+    }
+
+    // --- CHANNELS TAB LOGIC ---
+    document.querySelectorAll('.channel-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.channel-btn').forEach(b => b.classList.remove('tab-active'));
+        e.target.classList.add('tab-active');
+        currentChannel = e.target.getAttribute('data-channel');
+        document.getElementById('channel-input').placeholder = `Message #${currentChannel}...`;
+        loadChannelMessages(currentChannel);
+      });
+    });
+
+    function loadChannelMessages(channel) {
+      if (unsubChannel) unsubChannel();
+      const container = document.getElementById('channel-messages');
+
+      const q = query(collection(db, "messages"), where("channel", "==", channel));
+      unsubChannel = onSnapshot(q, (snapshot) => {
+        container.innerHTML = "";
+        let docs = snapshot.docs.map(d => d.data());
+        docs.sort((a, b) => (a.timestamp?.toMillis?.() || 0) - (b.timestamp?.toMillis?.() || 0));
+
+        if (docs.length === 0) {
+          container.innerHTML = `<div class="text-gray-500 text-center py-8 text-xs">No messages in #${channel} yet. Be the first to chat!</div>`;
+          return;
+        }
+
+        docs.forEach(msg => {
+          const div = document.createElement('div');
+          div.className = "flex items-start gap-2.5 bg-gray-800/50 p-2.5 rounded-xl text-xs border border-gray-800";
+          div.innerHTML = `
+            <img src="${msg.photoURL || 'https://via.placeholder.com/100'}" class="w-8 h-8 rounded-full object-cover mt-0.5 border border-emerald-500/40 shadow-sm" />
+            <div>
+              <div class="font-bold text-emerald-400">${msg.username || 'User'}</div>
+              <div class="text-gray-200 mt-0.5 leading-relaxed">${msg.text}</div>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+        container.scrollTop = container.scrollHeight;
+      });
+    }
+
+    document.getElementById('send-channel-btn').addEventListener('click', async () => {
+      const input = document.getElementById('channel-input');
+      const text = input.value.trim();
+      if (!text || !currentUser) return;
+
+      const userDoc = (await getDoc(doc(db, "users", currentUser.uid))).data();
+
+      await addDoc(collection(db, "messages"), {
+        text: text,
+        channel: currentChannel,
+        uid: currentUser.uid,
+        username: userDoc?.displayName || currentUser.email.split('@')[0],
+        photoURL: userDoc?.photoURL || "",
+        timestamp: serverTimestamp()
+      });
+      input.value = "";
+    });
+
+    // --- PEOPLE & DIRECT MESSAGES TAB ---
+    function listenToPeopleAndDMs() {
+      onSnapshot(collection(db, "users"), (snapshot) => {
+        allUsersCache = snapshot.docs.map(doc => doc.data()).filter(u => u.uid !== currentUser.uid);
+        renderPeopleAndDMs(allUsersCache);
+      });
+    }
+
+    function renderPeopleAndDMs(users) {
+      const peopleContainer = document.getElementById('people-list-container');
+      const dmUsersContainer = document.getElementById('users-container-dm');
+
+      peopleContainer.innerHTML = "";
+      dmUsersContainer.innerHTML = "";
+
+      if(users.length === 0) {
+        peopleContainer.innerHTML = `<div class="text-xs text-gray-500 text-center py-4">No users found.</div>`;
+        dmUsersContainer.innerHTML = `<div class="text-xs text-gray-500 text-center py-4">No conversations yet.</div>`;
+        return;
+      }
+
+      users.forEach((u) => {
+        const userCardHTML = `
+          <div class="flex items-center justify-between bg-gray-900 border border-gray-800 p-3 rounded-2xl shadow-sm">
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="${u.photoURL || 'https://via.placeholder.com/100'}" class="w-10 h-10 rounded-full object-cover border border-emerald-500/40" />
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">${u.displayName || u.email} ${getStatusBadgeHTML(u)}</div>
+                <div class="text-[10px] text-gray-400 truncate max-w-[150px] mt-0.5">${u.bio || 'No bio provided.'}</div>
+              </div>
+            </div>
+            <button class="start-dm-btn bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs px-3.5 py-1.5 rounded-xl transition" data-uid="${u.uid}" data-name="${u.displayName || u.email}">Message</button>
+          </div>
+        `;
+
+        peopleContainer.innerHTML += userCardHTML;
+        dmUsersContainer.innerHTML += userCardHTML;
+      });
+
+      document.querySelectorAll('.start-dm-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetUID = e.target.getAttribute('data-uid');
+          const targetName = e.target.getAttribute('data-name');
+          openDMChat(targetUID, targetName);
+        });
+      });
+    }
+
+    document.getElementById('search-people-input').addEventListener('input', (e) => {
+      const queryStr = e.target.value.toLowerCase().trim();
+      const filtered = allUsersCache.filter(u => 
+        (u.displayName && u.displayName.toLowerCase().includes(queryStr)) ||
+        (u.email && u.email.toLowerCase().includes(queryStr))
+      );
+      renderPeopleAndDMs(filtered);
+    });
+
+    function openDMChat(targetUID, targetName) {
+      activeDMTargetUID = targetUID;
+      document.getElementById('dm-users-list').classList.add('hidden');
+      document.getElementById('dm-chat-box').classList.remove('hidden');
+
+      const targetUser = allUsersCache.find(u => u.uid === targetUID);
+      document.getElementById('active-dm-target').innerHTML = `Chat with @${targetName} ${targetUser ? getStatusBadgeHTML(targetUser) : ''}`;
+
+      document.querySelectorAll('.view-panel').forEach(panel => panel.classList.add('hidden'));
+      document.getElementById('view-dms').classList.remove('hidden');
+
+      if (unsubDM) unsubDM();
+      const container = document.getElementById('dm-messages');
+
+      const dmChatID = [currentUser.uid, targetUID].sort().join("_");
+      const q = query(collection(db, "direct_messages"), where("dmID", "==", dmChatID));
+
+      unsubDM = onSnapshot(q, (snapshot) => {
+        container.innerHTML = "";
+        let docs = snapshot.docs.map(d => d.data());
+        docs.sort((a, b) => (a.timestamp?.toMillis?.() || 0) - (b.timestamp?.toMillis?.() || 0));
+
+        if(docs.length === 0) {
+          container.innerHTML = `<div class="text-gray-500 text-center py-6 text-xs">No private messages yet. Say hi!</div>`;
+          return;
+        }
+
+        docs.forEach(msg => {
+          const isMe = msg.senderUID === currentUser.uid;
+          const div = document.createElement('div');
+          div.className = `flex ${isMe ? 'justify-end' : 'justify-start'}`;
+          div.innerHTML = `
+            <div class="${isMe ? 'bg-emerald-600 text-white' : 'bg-gray-800 text-gray-200'} p-3 rounded-2xl text-xs max-w-[80%] shadow-sm">
+              ${msg.text}
+            </div>
+          `;
+          container.appendChild(div);
+        });
+        container.scrollTop = container.scrollHeight;
+      });
+    }
+
+    document.getElementById('back-to-users-btn').addEventListener('click', () => {
+      document.getElementById('dm-chat-box').classList.add('hidden');
+      document.getElementById('dm-users-list').classList.remove('hidden');
+    });
+
+    document.getElementById('send-dm-btn').addEventListener('click', async () => {
+      const input = document.getElementById('dm-input');
+      const text = input.value.trim();
+      if (!text || !activeDMTargetUID) return;
+
+      const dmChatID = [currentUser.uid, activeDMTargetUID].sort().join("_");
+
+      await addDoc(collection(db, "direct_messages"), {
+        dmID: dmChatID,
+        senderUID: currentUser.uid,
+        text: text,
+        timestamp: serverTimestamp()
+      });
+      input.value = "";
+    });
+
+    // --- GROUPS LOGIC ---
+    const createGroupModal = document.getElementById('create-group-modal');
+    
+    document.getElementById('open-create-group-modal-btn').addEventListener('click', () => createGroupModal.classList.remove('hidden'));
+    headerCreateGroupBtn.addEventListener('click', () => createGroupModal.classList.remove('hidden'));
+    document.getElementById('close-create-group-btn').addEventListener('click', () => createGroupModal.classList.add('hidden'));
+
+    document.getElementById('confirm-create-group-btn').addEventListener('click', async () => {
+      const groupName = document.getElementById('group-name-input').value.trim();
+      if (!groupName) return alert("Please type a group name");
+
+      try {
+        await addDoc(collection(db, "groups"), {
+          name: groupName,
+          createdBy: currentUser.uid,
+          members: [currentUser.uid],
+          createdAt: serverTimestamp()
+        });
+
+        alert(`Group space "${groupName}" created!`);
+        document.getElementById('group-name-input').value = "";
+        createGroupModal.classList.add('hidden');
+        loadGroups();
+      } catch (err) {
+        alert("Error creating group: " + err.message);
+      }
+    });
+
+    function loadGroups() {
+      const groupsContainer = document.getElementById('groups-container');
+
+      const q = query(collection(db, "groups"), where("members", "array-contains", currentUser.uid));
+      onSnapshot(q, (snapshot) => {
+        groupsContainer.innerHTML = "";
+        if (snapshot.docs.length === 0) {
+          groupsContainer.innerHTML = `<div class="text-xs text-gray-500 py-4 text-center">No groups found yet. Create one above!</div>`;
+          return;
+        }
+
+        snapshot.docs.forEach((docSnap) => {
+          const g = docSnap.data();
+          const gID = docSnap.id;
+
+          const card = document.createElement('div');
+          card.className = "flex items-center justify-between bg-gray-900 border border-gray-800 p-3 rounded-2xl shadow-sm";
+          card.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">◈</div>
+              <div>
+                <div class="text-xs font-bold text-white">${g.name}</div>
+                <div class="text-[10px] text-gray-400">${g.members?.length || 1} member(s) • private</div>
+              </div>
+            </div>
+            <button class="open-group-btn bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs px-3.5 py-1.5 rounded-xl transition" data-gid="${gID}" data-gname="${g.name}">Open</button>
+          `;
+          groupsContainer.appendChild(card);
+        });
+
+        document.querySelectorAll('.open-group-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const gID = e.target.getAttribute('data-gid');
+            const gName = e.target.getAttribute('data-gname');
+            openGroupChat(gID, gName);
+          });
+        });
+      });
+    }
+
+    function openGroupChat(gID, gName) {
+      activeGroupID = gID;
+      document.getElementById('groups-list-container').classList.add('hidden');
+      document.getElementById('group-chat-box').classList.remove('hidden');
+      document.getElementById('active-group-target').textContent = `Group: ${gName}`;
+
+      if (unsubGroup) unsubGroup();
+      const container = document.getElementById('group-messages');
+
+      const q = query(collection(db, "group_messages"), where("groupID", "==", gID));
+      unsubGroup = onSnapshot(q, (snapshot) => {
+        container.innerHTML = "";
+        let docs = snapshot.docs.map(d => d.data());
+        docs.sort((a, b) => (a.timestamp?.toMillis?.() || 0) - (b.timestamp?.toMillis?.() || 0));
+
+        if (docs.length === 0) {
+          container.innerHTML = `<div class="text-gray-500 text-center py-6 text-xs">No messages in group yet. Start chatting!</div>`;
+          return;
+        }
+
+        docs.forEach(msg => {
+          const div = document.createElement('div');
+          div.className = "flex items-start gap-2.5 bg-gray-800/50 p-2.5 rounded-xl text-xs border border-gray-800";
+          div.innerHTML = `
+            <img src="${msg.photoURL || 'https://via.placeholder.com/100'}" class="w-8 h-8 rounded-full object-cover mt-0.5 border border-emerald-500/40 shadow-sm" />
+            <div>
+              <div class="font-bold text-emerald-400">${msg.username || 'User'}</div>
+              <div class="text-gray-200 mt-0.5 leading-relaxed">${msg.text}</div>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+        container.scrollTop = container.scrollHeight;
+      });
+    }
+
+    document.getElementById('back-to-groups-btn').addEventListener('click', () => {
+      document.getElementById('group-chat-box').classList.add('hidden');
+      document.getElementById('groups-list-container').classList.remove('hidden');
+    });
+
+    document.getElementById('send-group-btn').addEventListener('click', async () => {
+      const input = document.getElementById('group-input');
+      const text = input.value.trim();
+      if (!text || !activeGroupID) return;
+
+      const userDoc = (await getDoc(doc(db, "users", currentUser.uid))).data();
+
+      await addDoc(collection(db, "group_messages"), {
+        groupID: activeGroupID,
+        text: text,
+        uid: currentUser.uid,
+        username: userDoc?.displayName || currentUser.email.split('@')[0],
+        photoURL: userDoc?.photoURL || "",
+        timestamp: serverTimestamp()
+      });
+      input.value = "";
+    });
+
+    // --- PROFILE SAVING & BASE64 AVATAR ---
+    const profileModal = document.getElementById('profile-modal');
+    
+    document.getElementById('nav-profile-btn').addEventListener('click', async () => {
+      if (!currentUser) return;
+      
+      const snap = await getDoc(doc(db, "users", currentUser.uid));
+      if (snap.exists()) {
+        const u = snap.data();
+        document.getElementById('profile-name').value = u.displayName || "";
+        document.getElementById('profile-bio').value = u.bio || "";
+        document.getElementById('profile-avatar-preview').src = u.photoURL || "https://via.placeholder.com/100";
+        base64AvatarString = u.photoURL || "";
+      }
+      profileModal.classList.remove('hidden');
+    });
+
+    document.getElementById('close-profile-btn').addEventListener('click', () => profileModal.classList.add('hidden'));
+
+    document.getElementById('profile-file-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Please pick an image under 2MB!");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        base64AvatarString = event.target.result;
+        document.getElementById('profile-avatar-preview').src = base64AvatarString;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('save-profile-btn').addEventListener('click', async () => {
+      if (!currentUser) return;
+      const name = document.getElementById('profile-name').value.trim();
+      const bio = document.getElementById('profile-bio').value.trim();
+
+      try {
+        await setDoc(doc(db, "users", currentUser.uid), {
+          displayName: name || currentUser.email.split('@')[0],
+          bio: bio,
+          photoURL: base64AvatarString || "https://via.placeholder.com/100",
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        alert("Profile saved successfully!");
+        profileModal.classList.add('hidden');
+      } catch (err) {
+        alert("Save failed: " + err.message);
+      }
+    });
+
+  </script>
+</body>
+</html>
